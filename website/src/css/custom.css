@@ -114,6 +114,20 @@
   text-align: center;
 }
 
+[data-theme='dark'] .stats {
+  background: #1b1b1d;
+}
+
+/* Security section */
+.security-section {
+  padding: 4rem 0;
+  background: #f8f9fa;
+}
+
+[data-theme='dark'] .security-section {
+  background: #1b1b1d;
+}
+
 .stats__item {
   margin: 1rem;
 }

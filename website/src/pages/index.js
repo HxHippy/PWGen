@@ -27,7 +27,7 @@ function HomepageHeader() {
           </Link>
           <Link
             className="download-button"
-            href="https://github.com/your-username/pwgen">
+            href="https://github.com/hxhippy/pwgen">
             ⭐ GitHub
           </Link>
         </div>
@@ -80,7 +80,7 @@ function StatsSection() {
 
 function SecuritySection() {
   return (
-    <section style={{padding: '4rem 0', backgroundColor: '#f8f9fa'}}>
+    <section className="security-section">
       <div className="container">
         <div className="row">
           <div className="col col--12">
