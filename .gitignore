@@ -10,6 +10,20 @@ Cargo.lock
 *.swo
 *~
 
+# AI Assistant files
+CLAUDE.md
+claude/
+.claude/
+.cursor/
+*.cursor*
+.windsurf/
+*.windsurf*
+
+# Development documentation (internal notes)
+BACKUP_FEATURES.md
+BUILD.md  
+SECRETS_MANAGEMENT.md
+
 # OS generated files
 .DS_Store
 .DS_Store?
@@ -33,6 +47,14 @@ pids
 *.db-*
 test_vault.db
 vault.db
+
+# Test files and development scripts
+test_*.sh
+*_test.sh
+test-*.sh
+*-test.sh
+test_backups/
+test_data/
 
 # Backup files
 *.bak
@@ -88,6 +110,11 @@ website/.docusaurus/
 website/node_modules/
 website/package-lock.json
 website/yarn.lock
+
+# Legacy Tauri files (project moved to egui)
+src-tauri/
+tauri.conf.json
+*.tauri*
 
 # Documentation builds
 docs/_build/
