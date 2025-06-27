@@ -1,0 +1,29 @@
+[package]
+name = "pwgen-gui"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation = "https://docs.rs/pwgen-gui"
+description = "Desktop GUI application for PwGen password and secrets manager"
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+pwgen-core = { path = "../pwgen-core" }
+egui = "0.27"
+eframe = { version = "0.27", features = ["persistence"] }
+egui_extras = { version = "0.27", features = ["image"] }
+image = { version = "0.25", features = ["png"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true, features = ["rt-multi-thread"] }
+dirs = { workspace = true }
+chrono = { workspace = true }
+arboard = { workspace = true }
+uuid = { workspace = true }
+sha2 = "0.10"
+rfd = "0.14"
+open = "5.0"

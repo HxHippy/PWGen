@@ -1,0 +1,26 @@
+[package]
+name = "pwgen-cli"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation = "https://docs.rs/pwgen-cli"
+description = "Command-line interface for PwGen password and secrets manager"
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+pwgen-core = { path = "../pwgen-core" }
+clap = { workspace = true }
+tokio = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+serde_json = { workspace = true }
+rpassword = { workspace = true }
+dirs = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+arboard = { workspace = true }

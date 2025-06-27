@@ -1,0 +1,139 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for PwGen
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature! 🚀
+        
+        Your ideas help make PwGen better for everyone.
+
+  - type: checkboxes
+    id: preliminary-checks
+    attributes:
+      label: Preliminary Checks
+      description: Please confirm the following before submitting
+      options:
+        - label: I have searched existing issues and this feature hasn't been requested
+          required: true
+        - label: I have checked the roadmap to see if this is already planned
+          required: true
+        - label: This is a feature request, not a bug report
+          required: true
+
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What type of feature are you requesting?
+      options:
+        - User Interface Enhancement
+        - New Functionality
+        - Security Improvement
+        - Performance Optimization
+        - Integration/API
+        - CLI Enhancement
+        - Documentation
+        - Developer Tools
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve? What's the current limitation?
+      placeholder: "Currently, users cannot... This causes issues because..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: Describe your ideal solution to this problem
+      placeholder: "I would like to see... This could work by..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use Cases
+      description: Provide specific examples of how this feature would be used
+      placeholder: |
+        1. As a developer, I want to...
+        2. As a team lead, I need to...
+        3. When managing multiple projects...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: What other solutions have you considered? What workarounds are you currently using?
+      placeholder: "I tried... but it doesn't work because... Currently I work around this by..."
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature to you?
+      options:
+        - Critical - Blocks important workflows
+        - High - Significantly improves workflow
+        - Medium - Nice to have improvement
+        - Low - Minor convenience
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user-type
+    attributes:
+      label: User Type
+      description: Which type of user would benefit most from this feature?
+      options:
+        - Individual Users
+        - Power Users
+        - Developers
+        - System Administrators
+        - Teams/Organizations
+        - All Users
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation-ideas
+    attributes:
+      label: Implementation Ideas
+      description: If you have ideas about how this could be implemented, share them here
+      placeholder: "This could be implemented by... It might require changes to..."
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: Mockups/Examples
+      description: Include mockups, screenshots from other tools, or examples that illustrate your idea
+      placeholder: Drag and drop images here or describe the UI/workflow
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be interested in contributing to this feature?
+      options:
+        - label: I would be willing to help implement this feature
+        - label: I would be willing to test this feature
+        - label: I would be willing to help with documentation
+        - label: I can provide ongoing feedback during development
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context, research, or information about the feature request
+      placeholder: Links to similar features in other tools, relevant standards, etc.

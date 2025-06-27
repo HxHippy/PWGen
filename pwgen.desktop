@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=PwGen Password Manager
+Comment=Secure password management application
+Exec=pwgen-gui
+Icon=PWGenLogo
+Type=Application
+Categories=Utility;Security;
+Keywords=password;security;vault;
+StartupNotify=true

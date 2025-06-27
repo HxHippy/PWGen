@@ -1,0 +1,143 @@
+name: Bug Report
+description: File a bug report to help us improve PwGen
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to fill out this bug report! 🐛
+        
+        **⚠️ Security Issues**: If this is a security vulnerability, please DO NOT file a public issue. Instead, email us at security@example.com.
+
+  - type: checkboxes
+    id: preliminary-checks
+    attributes:
+      label: Preliminary Checks
+      description: Please confirm the following before submitting
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true
+        - label: This is not a security vulnerability (those should be reported privately)
+          required: true
+        - label: I have read the documentation and troubleshooting guide
+          required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: PwGen Version
+      description: What version of PwGen are you running?
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of PwGen is affected?
+      options:
+        - GUI Application
+        - CLI Application
+        - Core Library
+        - Installation/Setup
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you using?
+      options:
+        - Linux
+        - macOS
+        - Windows
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: os-version
+    attributes:
+      label: OS Version
+      description: What version of your operating system?
+      placeholder: "Ubuntu 22.04, macOS 14.0, Windows 11"
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: Describe what you expected to happen vs what actually happened
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Steps to Reproduce
+      description: Step-by-step instructions to reproduce the issue
+      placeholder: |
+        1. Open PwGen GUI
+        2. Click on "Add Entry"
+        3. Fill in the form with...
+        4. Click "Save"
+        5. Error occurs...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: Entry should be saved successfully
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Application crashed with error message...
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-logs
+    attributes:
+      label: Error Messages / Logs
+      description: Include any error messages or log output (run with RUST_LOG=debug for verbose logs)
+      placeholder: Paste error messages or log output here
+      render: text
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain the problem
+      placeholder: Drag and drop images here or paste image URLs
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here
+      placeholder: Any other information that might be helpful
+
+  - type: checkboxes
+    id: troubleshooting
+    attributes:
+      label: Troubleshooting Attempted
+      description: What have you tried to fix the issue?
+      options:
+        - label: Restarted the application
+        - label: Updated to the latest version
+        - label: Cleared application data/cache
+        - label: Tried on a different system
+        - label: Checked documentation/FAQ

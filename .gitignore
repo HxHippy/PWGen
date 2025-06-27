@@ -1,0 +1,94 @@
+# Rust build artifacts
+/target/
+**/target/
+Cargo.lock
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Test databases and vaults (don't commit real user data)
+*.db
+*.db-*
+test_vault.db
+vault.db
+
+# Backup files
+*.bak
+*.backup
+*.pwgen
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Coverage reports
+tarpaulin-report.html
+coverage/
+
+# Documentation builds
+book/
+mdbook/
+
+# Temporary files
+tmp/
+temp/
+
+# Platform specific
+.cargo/
+*.exe
+*.dll
+*.dylib
+*.so
+
+# Release artifacts
+release/
+dist/
+
+# Configuration files with sensitive data
+config.toml
+settings.json
+
+# Development databases
+dev.db
+test.db
+
+# Benchmark results
+criterion/
+
+# Generated files
+src/generated/
+*.generated.*
+
+# Website build artifacts
+website/build/
+website/.docusaurus/
+website/node_modules/
+website/package-lock.json
+website/yarn.lock
+
+# Documentation builds
+docs/_build/
+site/
