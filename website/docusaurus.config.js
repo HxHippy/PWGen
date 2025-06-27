@@ -9,7 +9,7 @@ const darkCodeTheme = themes.dracula;
 const config = {
   title: 'PwGen',
   tagline: 'Advanced Password & Secrets Manager built in Rust',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
 
   // Set the production url of your site here
   url: 'https://pwgenrust.dev',
@@ -72,7 +72,7 @@ const config = {
         title: 'PwGen',
         logo: {
           alt: 'PwGen Logo',
-          src: 'img/logo.svg',
+          src: 'img/PWGenLogo.png',
         },
         items: [
           {
