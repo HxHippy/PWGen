@@ -19,7 +19,7 @@ use pwgen_core::notes_config::{NotesConfigManager, NoteCategory, ConfigType, Not
 use pwgen_core::env_connections::{EnvConnectionManager, EnvironmentType, ConnectionType, EnvVarType, EnvVariable};
 use pwgen_core::secret_templates::{SecretTemplateManager, TemplateCategory};
 use pwgen_core::browser_import::{BrowserImporter, BrowserType, ImportFormat, ImportConfig};
-use pwgen_core::team_sharing::{TeamSharingManager, Team, TeamMember, SharedSecret, ShareRequest, ShareRequestStatus, Permission, AccessLog, AccessAction};
+use pwgen_core::team_sharing::{TeamSharingManager, Permission};
 use std::path::PathBuf;
 use tracing_subscriber;
 
@@ -2226,7 +2226,6 @@ async fn show_ssh_key_info(storage: &SecretsStorage, name: &str) -> Result<()> {
                         println!("Bit length: {}", bit_length);
                     }
                     println!("SHA256 fingerprint: {}", info.fingerprint_sha256);
-                    println!("MD5 fingerprint: {}", info.fingerprint_md5);
                 }
                 Err(e) => {
                     println!("Could not parse key details: {}", e);
@@ -2939,7 +2938,7 @@ fn list_api_key_providers() {
     }
     
     println!("\nExample usage:");
-    println!("  pwgen create-api-key --name \"My AWS Key\" --provider aws --api-key AKIA...");
+    println!("  pwgen create-api-key --name \"My AWS Key\" --provider aws --api-key AKIA_YOUR_KEY_HERE...");
     println!("  pwgen create-jwt-token --name \"Auth Token\" --token eyJ...");
 }
 

@@ -31,7 +31,6 @@ impl Default for SshKeyGenParams {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SshKeyInfo {
     pub key_type: SshKeyType,
-    pub fingerprint_md5: String,
     pub fingerprint_sha256: String,
     pub bit_length: Option<u32>,
     pub comment: Option<String>,
@@ -115,13 +114,11 @@ impl SshKeyManager {
             return Err(Error::Other("Unknown key type".to_string()));
         };
         
-        // Generate fingerprints (simplified version)
+        // Generate SHA-256 fingerprint
         let fingerprint_sha256 = Self::calculate_fingerprint_sha256(key_content);
-        let fingerprint_md5 = Self::calculate_fingerprint_md5(key_content);
         
         Ok(SshKeyInfo {
             key_type,
-            fingerprint_md5,
             fingerprint_sha256,
             bit_length: Self::extract_bit_length(key_content),
             comment: None,
@@ -131,7 +128,7 @@ impl SshKeyManager {
     
     /// Parse and validate an SSH public key
     pub fn parse_public_key(key_content: &str) -> Result<SshKeyInfo> {
-        let parts: Vec<&str> = key_content.trim().split_whitespace().collect();
+        let parts: Vec<&str> = key_content.split_whitespace().collect();
         
         if parts.len() < 2 {
             return Err(Error::Other("Invalid public key format".to_string()));
@@ -153,13 +150,11 @@ impl SshKeyManager {
             _ => return Err(Error::Other(format!("Unknown key type: {}", key_type_str))),
         };
         
-        // Calculate fingerprints
+        // Calculate SHA-256 fingerprint
         let fingerprint_sha256 = Self::calculate_public_key_fingerprint_sha256(key_data)?;
-        let fingerprint_md5 = Self::calculate_public_key_fingerprint_md5(key_data)?;
         
         Ok(SshKeyInfo {
             key_type: key_type.clone(),
-            fingerprint_md5,
             fingerprint_sha256,
             bit_length: Self::extract_public_key_bit_length(key_data, &key_type)?,
             comment,
@@ -261,12 +256,6 @@ impl SshKeyManager {
         format!("SHA256:{}", general_purpose::STANDARD_NO_PAD.encode(result))
     }
     
-    fn calculate_fingerprint_md5(key_content: &str) -> String {
-        let mut hasher = md5::Context::new();
-        hasher.consume(key_content.as_bytes());
-        let result = hasher.compute();
-        format!("MD5:{:x}", result)
-    }
     
     fn calculate_public_key_fingerprint_sha256(key_data: &str) -> Result<String> {
         let decoded = general_purpose::STANDARD.decode(key_data)
@@ -278,15 +267,6 @@ impl SshKeyManager {
         Ok(format!("SHA256:{}", general_purpose::STANDARD_NO_PAD.encode(result)))
     }
     
-    fn calculate_public_key_fingerprint_md5(key_data: &str) -> Result<String> {
-        let decoded = general_purpose::STANDARD.decode(key_data)
-            .map_err(|e| Error::Other(format!("Failed to decode key data: {}", e)))?;
-        
-        let mut hasher = md5::Context::new();
-        hasher.consume(&decoded);
-        let result = hasher.compute();
-        Ok(format!("MD5:{:x}", result))
-    }
     
     fn extract_bit_length(key_content: &str) -> Option<u32> {
         // Simple bit length extraction for RSA keys

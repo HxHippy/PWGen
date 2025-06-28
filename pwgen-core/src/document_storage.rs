@@ -1,12 +1,10 @@
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::fs;
 use sha2::{Sha256, Digest};
-use base64::{Engine as _, engine::general_purpose};
 use serde::{Deserialize, Serialize};
 
 use crate::{Result, Error};
-use crate::crypto::MasterKey;
-use crate::secrets::{SecretData, SecretMetadata};
+use crate::secrets::SecretData;
 
 /// Document types supported by the storage system
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -131,8 +129,7 @@ impl DocumentManager {
         let last_modified = metadata.modified()
             .ok()
             .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
-            .map(|d| chrono::DateTime::from_timestamp(d.as_secs() as i64, 0))
-            .flatten()
+            .and_then(|d| chrono::DateTime::from_timestamp(d.as_secs() as i64, 0))
             .map(|dt| dt.with_timezone(&chrono::Utc));
         
         // Create document info
@@ -402,13 +399,14 @@ impl DocumentManager {
         
         // Check the ratio of printable ASCII characters
         let printable_count = content.iter()
-            .filter(|&&b| (b >= 32 && b <= 126) || b == 9 || b == 10 || b == 13)
+            .filter(|&&b| (32..=126).contains(&b) || b == 9 || b == 10 || b == 13)
             .count();
         
         let ratio = printable_count as f64 / content.len() as f64;
         ratio > 0.7 // If more than 70% are printable, consider it text
     }
     
+    #[cfg(feature = "document-compression")]
     fn compress_content(content: &[u8]) -> Result<Vec<u8>> {
         use std::io::Write;
         
@@ -420,6 +418,12 @@ impl DocumentManager {
             .map_err(|e| Error::Other(format!("Compression failed: {}", e)))
     }
     
+    #[cfg(not(feature = "document-compression"))]
+    fn compress_content(content: &[u8]) -> Result<Vec<u8>> {
+        Ok(content.to_vec())
+    }
+    
+    #[cfg(feature = "document-compression")]
     fn decompress_content(compressed: &[u8]) -> Result<Vec<u8>> {
         use std::io::Read;
         
@@ -429,6 +433,11 @@ impl DocumentManager {
             .map_err(|e| Error::Other(format!("Decompression failed: {}", e)))?;
         
         Ok(decompressed)
+    }
+    
+    #[cfg(not(feature = "document-compression"))]
+    fn decompress_content(compressed: &[u8]) -> Result<Vec<u8>> {
+        Ok(compressed.to_vec())
     }
 }
 

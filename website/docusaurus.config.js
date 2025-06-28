@@ -7,8 +7,8 @@ const darkCodeTheme = themes.dracula;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'PwGen',
-  tagline: 'Advanced Password & Secrets Manager built in Rust',
+  title: 'PwGen-rust v1.2',
+  tagline: 'Advanced Password & Secrets Manager built in Rust - Now 30-40% smaller!',
   favicon: 'img/favicon.png',
 
   // Set the production url of your site here
@@ -201,12 +201,12 @@ const config = {
         searchPagePath: 'search',
       },
       announcementBar: {
-        id: 'support_us',
+        id: 'v1_2_release',
         content:
-          '⭐️ If you like PwGen, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/hxhippy/pwgen">GitHub</a>! ⭐️',
-        backgroundColor: '#fafbfc',
-        textColor: '#091E42',
-        isCloseable: false,
+          '🎉 PwGen v1.2 is out! 30-40% smaller binaries, enhanced security, and flexible builds! <a target="_blank" rel="noopener noreferrer" href="https://github.com/hxhippy/pwgen">Download now</a> ⭐️',
+        backgroundColor: '#25c2a0',
+        textColor: '#FFFFFF',
+        isCloseable: true,
       },
     }),
 };

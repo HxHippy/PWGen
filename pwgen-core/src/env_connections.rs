@@ -321,7 +321,7 @@ impl EnvConnectionManager {
         let mut content = String::new();
         content.push_str("# Environment Variables\n");
         content.push_str(&format!("# Generated at: {}\n", Utc::now().to_rfc3339()));
-        content.push_str("\n");
+        content.push('\n');
 
         for (key, value) in variables {
             // Quote values that contain spaces or special characters

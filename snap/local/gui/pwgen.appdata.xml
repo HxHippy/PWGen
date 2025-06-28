@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>dev.pwgenrust.PwGen</id>
+  <name>PwGen</name>
+  <summary>Advanced Password &amp; Secrets Manager built in Rust</summary>
+  <description>
+    <p>
+      PwGen is a modern, secure password and secrets manager built in Rust with enterprise-grade security,
+      modern UI, and cross-platform support.
+    </p>
+    <p>Features include:</p>
+    <ul>
+      <li>AES-256-GCM encryption with Argon2 key derivation</li>
+      <li>Cross-platform GUI and CLI interfaces</li>
+      <li>Browser import (Chrome, Firefox, Safari, Edge, Opera, Brave)</li>
+      <li>SSH key and API token management</li>
+      <li>Secure document storage with optional compression</li>
+      <li>Zero-knowledge architecture - your data never leaves your device</li>
+      <li>30-40% smaller binaries with v1.2 optimization</li>
+    </ul>
+  </description>
+  
+  <launchable type="desktop-id">pwgen.desktop</launchable>
+  
+  <screenshots>
+    <screenshot type="default">
+      <image>https://pwgenrust.dev/img/screenshot-main.png</image>
+      <caption>Main password management interface</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://pwgenrust.dev/img/screenshot-generator.png</image>
+      <caption>Password generator with customizable options</caption>
+    </screenshot>
+  </screenshots>
+  
+  <url type="homepage">https://pwgenrust.dev</url>
+  <url type="bugtracker">https://github.com/hxhippy/pwgen/issues</url>
+  <url type="help">https://pwgenrust.dev/docs</url>
+  <url type="donation">https://github.com/sponsors/hxhippy</url>
+  <url type="vcs-browser">https://github.com/hxhippy/pwgen</url>
+  
+  <project_license>Apache-2.0</project_license>
+  <metadata_license>CC0-1.0</metadata_license>
+  
+  <developer_name>HxHippy, Kief Studio, TRaViS</developer_name>
+  
+  <categories>
+    <category>Utility</category>
+    <category>Security</category>
+    <category>Office</category>
+  </categories>
+  
+  <keywords>
+    <keyword>password</keyword>
+    <keyword>manager</keyword>
+    <keyword>security</keyword>
+    <keyword>encryption</keyword>
+    <keyword>secrets</keyword>
+    <keyword>vault</keyword>
+  </keywords>
+  
+  <provides>
+    <binary>pwgen-gui</binary>
+    <binary>pwgen-cli</binary>
+  </provides>
+  
+  <releases>
+    <release version="1.2.0" date="2025-06-27">
+      <description>
+        <p>Major optimization release:</p>
+        <ul>
+          <li>30-40% smaller binaries through dependency optimization</li>
+          <li>Enhanced security with modern cryptography (SHA-256 only)</li>
+          <li>Flexible build options for different deployment scenarios</li>
+          <li>Conditional compilation for platform-specific features</li>
+          <li>Improved performance and reduced memory footprint</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">none</content_attribute>
+    <content_attribute id="violence-fantasy">none</content_attribute>
+    <content_attribute id="violence-realistic">none</content_attribute>
+    <content_attribute id="violence-bloodshed">none</content_attribute>
+    <content_attribute id="violence-sexual">none</content_attribute>
+    <content_attribute id="violence-desecration">none</content_attribute>
+    <content_attribute id="violence-slavery">none</content_attribute>
+    <content_attribute id="violence-worship">none</content_attribute>
+    <content_attribute id="drugs-alcohol">none</content_attribute>
+    <content_attribute id="drugs-narcotics">none</content_attribute>
+    <content_attribute id="drugs-tobacco">none</content_attribute>
+    <content_attribute id="sex-nudity">none</content_attribute>
+    <content_attribute id="sex-themes">none</content_attribute>
+    <content_attribute id="sex-homosexuality">none</content_attribute>
+    <content_attribute id="sex-prostitution">none</content_attribute>
+    <content_attribute id="sex-adultery">none</content_attribute>
+    <content_attribute id="sex-appearance">none</content_attribute>
+    <content_attribute id="language-profanity">none</content_attribute>
+    <content_attribute id="language-humor">none</content_attribute>
+    <content_attribute id="language-discrimination">none</content_attribute>
+    <content_attribute id="social-chat">none</content_attribute>
+    <content_attribute id="social-info">none</content_attribute>
+    <content_attribute id="social-audio">none</content_attribute>
+    <content_attribute id="social-location">none</content_attribute>
+    <content_attribute id="social-contacts">none</content_attribute>
+    <content_attribute id="money-purchasing">none</content_attribute>
+    <content_attribute id="money-gambling">none</content_attribute>
+  </content_rating>
+</component>

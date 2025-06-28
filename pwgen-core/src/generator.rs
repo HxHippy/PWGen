@@ -160,7 +160,7 @@ impl PasswordGenerator {
             "current", "curtain", "customer", "cutting", "dancing", "daughter", "daylight", "deadline"
         ];
         
-        if word_count < 3 || word_count > 20 {
+        if !(3..=20).contains(&word_count) {
             return Err(Error::Other("Word count must be between 3 and 20".to_string()));
         }
         

@@ -1,0 +1,158 @@
+name: pwgen-rust
+title: PwGen-rust
+base: core22
+version: '1.2.0'
+summary: Advanced Password & Secrets Manager built in Rust
+description: |
+  PwGen-rust is a modern, secure password and secrets manager built in Rust.
+  
+  Features:
+  - AES-256-GCM encryption with Argon2 key derivation
+  - Cross-platform GUI and CLI interfaces
+  - Browser import (Chrome, Firefox, Safari, Edge, Opera, Brave)
+  - SSH key and API token management
+  - Secure document storage
+  - 30-40% smaller binaries (v1.2 optimization)
+  - Zero-knowledge architecture
+  
+  This snap includes both the GUI (pwgen-gui) and CLI (pwgen-cli) applications.
+
+website: https://pwgenrust.dev
+contact: https://github.com/hxhippy/pwgen/issues
+source-code: https://github.com/hxhippy/pwgen
+license: Apache-2.0
+
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: amd64
+    build-for: amd64
+
+apps:
+  pwgen-gui:
+    command: bin/pwgen-gui
+    desktop: usr/share/applications/pwgen.desktop
+    common-id: dev.pwgenrust.PwGen
+    plugs:
+      - home
+      - removable-media
+      - desktop
+      - desktop-legacy
+      - wayland
+      - x11
+      - unity7
+      - gsettings
+      - opengl
+      - audio-playback
+      - network
+      - network-bind
+    environment:
+      XDG_DATA_DIRS: $SNAP/usr/share:$XDG_DATA_DIRS
+      FONTCONFIG_PATH: $SNAP/etc/fonts
+      FONTCONFIG_FILE: $SNAP/etc/fonts/fonts.conf
+
+  pwgen-cli:
+    command: bin/pwgen-cli
+    plugs:
+      - home
+      - removable-media
+      - network
+      - network-bind
+    environment:
+      XDG_DATA_DIRS: $SNAP/usr/share:$XDG_DATA_DIRS
+
+  pwgen:
+    command: bin/pwgen-gui
+    desktop: usr/share/applications/pwgen.desktop
+    plugs:
+      - home
+      - removable-media
+      - desktop
+      - desktop-legacy
+      - wayland
+      - x11
+      - unity7
+      - gsettings
+      - opengl
+      - audio-playback
+      - network
+      - network-bind
+    environment:
+      XDG_DATA_DIRS: $SNAP/usr/share:$XDG_DATA_DIRS
+      FONTCONFIG_PATH: $SNAP/etc/fonts
+      FONTCONFIG_FILE: $SNAP/etc/fonts/fonts.conf
+
+parts:
+  pwgen:
+    plugin: nil
+    source: .
+    override-build: |
+      # Use system Rust instead of snap rustup
+      export PATH=$PATH:$HOME/.cargo/bin
+      
+      # Build with size optimization
+      export CARGO_BUILD_JOBS=4
+      cargo build --profile min-size --features "clipboard,document-compression"
+      
+      # Install binaries
+      install -D -m755 target/min-size/pwgen-gui $SNAPCRAFT_PART_INSTALL/bin/pwgen-gui
+      install -D -m755 target/min-size/pwgen-cli $SNAPCRAFT_PART_INSTALL/bin/pwgen-cli
+      
+      # Install desktop file
+      install -D -m644 snap/local/gui/pwgen.desktop $SNAPCRAFT_PART_INSTALL/usr/share/applications/pwgen.desktop
+      
+      # Install icons
+      install -D -m644 assets/PWGenLogo.png $SNAPCRAFT_PART_INSTALL/usr/share/pixmaps/pwgen.png
+      install -D -m644 ui/PWGenLogo.png $SNAPCRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/pwgen.png
+      install -D -m644 ui/PWGenLogo-Wide.png $SNAPCRAFT_PART_INSTALL/usr/share/pixmaps/pwgen-wide.png
+      
+      # Install AppStream metadata
+      install -D -m644 snap/local/gui/pwgen.appdata.xml $SNAPCRAFT_PART_INSTALL/usr/share/metainfo/dev.pwgenrust.PwGen.appdata.xml
+    build-packages:
+      - pkg-config
+      - libssl-dev
+      - libgtk-3-dev
+      - libx11-dev
+      - libxcb1-dev
+      - libxrandr-dev
+      - libxi-dev
+      - libgl1-mesa-dev
+      - libasound2-dev
+    stage-packages:
+      - libgtk-3-0
+      - libx11-6
+      - libxcb1
+      - libxrandr2
+      - libxi6
+      - libgl1-mesa-glx
+      - libasound2
+      - libssl3
+      - libfontconfig1
+      - libfreetype6
+
+  fonts:
+    plugin: nil
+    stage-packages:
+      - fonts-noto-core
+      - fonts-liberation
+      - fonts-dejavu-core
+    override-stage: |
+      craftctl default
+      mkdir -p $SNAPCRAFT_STAGE/etc/fonts
+      cat > $SNAPCRAFT_STAGE/etc/fonts/fonts.conf << EOF
+      <?xml version="1.0"?>
+      <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+      <fontconfig>
+        <dir>/snap/pwgen-rust/current/usr/share/fonts</dir>
+        <dir>/var/lib/snapd/hostfs/usr/share/fonts</dir>
+        <dir>/var/lib/snapd/hostfs/usr/local/share/fonts</dir>
+        <cachedir>/tmp/fontconfig-cache</cachedir>
+      </fontconfig>
+      EOF
+
+layout:
+  /usr/share/fonts:
+    bind: $SNAP/usr/share/fonts
+  /etc/fonts:
+    bind: $SNAP/etc/fonts

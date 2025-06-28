@@ -240,7 +240,7 @@ impl BrowserImporter {
                     if let serde_json::Value::Array(entries) = items {
                         let mut passwords = Vec::new();
                         for entry in entries {
-                            if let Some(password) = Self::parse_bitwarden_entry(&entry)? {
+                            if let Some(password) = Self::parse_bitwarden_entry(entry)? {
                                 passwords.push(password);
                             }
                         }
@@ -868,7 +868,7 @@ impl BrowserImporter {
     }
 
     fn get_safari_paths() -> Vec<PathBuf> {
-        let mut paths = Vec::new();
+        let paths = Vec::new();
         
         #[cfg(target_os = "macos")]
         {

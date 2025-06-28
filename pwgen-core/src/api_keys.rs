@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc, Duration};
 use uuid::Uuid;
-use base64::{Engine as _, engine::general_purpose};
+use base64::Engine as _;
 
 use crate::{Result, Error};
 use crate::secrets::{SecretData, SecretMetadata, DecryptedSecretEntry, SecretType};
@@ -522,9 +522,9 @@ mod tests {
 
     #[test]
     fn test_api_key_validation() {
-        assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::AWS, "AKIAIOSFODNN7EXAMPLE").is_ok());
+        assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::AWS, "AKIA_SAMPLE_NOT_REAL123").is_ok());
         assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::AWS, "invalid").is_err());
         assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::GitHub, "ghp_1234567890abcdef").is_ok());
-        assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::Stripe, "sk_test_1234567890").is_ok());
+        assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::Stripe, "sk_test_SAMPLE_NOT_REAL_KEY123").is_ok());
     }
 }

@@ -1,9 +1,9 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+#[cfg(feature = "clipboard")]
 use arboard::Clipboard;
 use chrono::Utc;
 use eframe::egui;
-use image::GenericImageView;
 use pwgen_core::{
     generator::{PasswordConfig, PasswordGenerator},
     models::{DecryptedPasswordEntry, SearchFilter, SortField, SortOrder},
@@ -15,7 +15,6 @@ use std::{
     path::PathBuf,
     sync::{Arc, Mutex},
 };
-use sha2::{Sha256, Digest};
 // System tray functionality disabled - will be re-enabled once dependencies are resolved
 
 struct PwGenApp {
@@ -492,7 +491,7 @@ impl PwGenApp {
         
         // Apply favorites filter
         if self.filter_favorites {
-            filtered = filtered.into_iter().filter(|e| e.favorite).collect();
+            filtered.retain(|e| e.favorite);
         }
         
         // Apply tag filter
@@ -504,18 +503,16 @@ impl PwGenApp {
                 .collect();
             
             if !tag_filters.is_empty() {
-                filtered = filtered.into_iter()
-                    .filter(|e| {
+                filtered.retain(|e| {
                         tag_filters.iter().any(|filter_tag| {
                             e.tags.iter().any(|entry_tag| entry_tag.to_lowercase().contains(filter_tag))
                         })
-                    })
-                    .collect();
+                    });
             }
         }
         
         // Calculate pagination
-        self.total_pages = (filtered.len() + self.entries_per_page - 1) / self.entries_per_page;
+        self.total_pages = filtered.len().div_ceil(self.entries_per_page);
         if self.total_pages == 0 {
             self.total_pages = 1;
         }
@@ -660,12 +657,18 @@ impl PwGenApp {
         }
     }
     
+    #[cfg(feature = "clipboard")]
     fn copy_to_clipboard(&self, text: &str) {
         if let Ok(mut clipboard) = Clipboard::new() {
             if clipboard.set_text(text).is_ok() {
                 // Don't set success message here as it's called frequently
             }
         }
+    }
+    
+    #[cfg(not(feature = "clipboard"))]
+    fn copy_to_clipboard(&self, _text: &str) {
+        // Clipboard functionality disabled
     }
     
     fn quick_copy_entry(&mut self, entry: &DecryptedPasswordEntry, field: &str) {
@@ -720,7 +723,7 @@ impl PwGenApp {
                 }
             }
             _ => {
-                self.success_message = format!("Copy not supported for this secret type");
+                self.success_message = "Copy not supported for this secret type".to_string();
             }
         }
     }
@@ -2479,24 +2482,24 @@ impl PwGenApp {
                         ui.label("📈 Entry Statistics");
                         ui.horizontal(|ui| {
                             ui.label("Total entries:");
-                            ui.strong(&format!("{}", self.entries.len()));
+                            ui.strong(format!("{}", self.entries.len()));
                         });
                         ui.horizontal(|ui| {
                             ui.label("Entries shown:");
-                            ui.strong(&format!("{}", self.filtered_entries.len()));
+                            ui.strong(format!("{}", self.filtered_entries.len()));
                         });
                         
                         // Calculate some stats
                         let unique_sites: std::collections::HashSet<_> = self.entries.iter().map(|e| &e.site).collect();
                         ui.horizontal(|ui| {
                             ui.label("Unique sites:");
-                            ui.strong(&format!("{}", unique_sites.len()));
+                            ui.strong(format!("{}", unique_sites.len()));
                         });
                         
                         let total_tags: std::collections::HashSet<_> = self.entries.iter().flat_map(|e| &e.tags).collect();
                         ui.horizontal(|ui| {
                             ui.label("Total tags:");
-                            ui.strong(&format!("{}", total_tags.len()));
+                            ui.strong(format!("{}", total_tags.len()));
                         });
                     });
                     
@@ -2515,11 +2518,11 @@ impl PwGenApp {
                         
                         ui.horizontal(|ui| {
                             ui.label("Strong passwords (16+ chars):");
-                            ui.colored_label(egui::Color32::from_rgb(50, 200, 50), &format!("{}", strong_passwords));
+                            ui.colored_label(egui::Color32::from_rgb(50, 200, 50), format!("{}", strong_passwords));
                         });
                         ui.horizontal(|ui| {
                             ui.label("Weak passwords (<12 chars):");
-                            ui.colored_label(egui::Color32::from_rgb(200, 50, 50), &format!("{}", weak_passwords));
+                            ui.colored_label(egui::Color32::from_rgb(200, 50, 50), format!("{}", weak_passwords));
                         });
                         
                         // Password age analysis
@@ -2533,9 +2536,9 @@ impl PwGenApp {
                         ui.horizontal(|ui| {
                             ui.label("Passwords >90 days old:");
                             if old_passwords > 0 {
-                                ui.colored_label(egui::Color32::from_rgb(200, 150, 50), &format!("{}", old_passwords));
+                                ui.colored_label(egui::Color32::from_rgb(200, 150, 50), format!("{}", old_passwords));
                             } else {
-                                ui.colored_label(egui::Color32::from_rgb(50, 200, 50), &format!("{}", old_passwords));
+                                ui.colored_label(egui::Color32::from_rgb(50, 200, 50), format!("{}", old_passwords));
                             }
                         });
                     });
@@ -2653,7 +2656,7 @@ impl PwGenApp {
         // For now, show a file dialog to select CSV file from browser export
         if let Some(path) = rfd::FileDialog::new()
             .add_filter("CSV Files", &["csv"])
-            .set_title(&format!("Select {} password export file", browser))
+            .set_title(format!("Select {} password export file", browser))
             .pick_file()
         {
             let storage_mutex = self.storage.clone();
@@ -2724,7 +2727,7 @@ impl PwGenApp {
     fn create_backup(&mut self) {
         if let Some(path) = rfd::FileDialog::new()
             .add_filter("JSON Backup", &["json"])
-            .set_file_name(&format!("pwgen_backup_{}.json", chrono::Utc::now().format("%Y%m%d_%H%M%S")))
+            .set_file_name(format!("pwgen_backup_{}.json", chrono::Utc::now().format("%Y%m%d_%H%M%S")))
             .save_file()
         {
             let storage_mutex = self.storage.clone();
@@ -2748,7 +2751,7 @@ impl PwGenApp {
                                 .map_err(|e| pwgen_core::Error::Io(std::io::Error::new(std::io::ErrorKind::Other, e.to_string())))?;
                             
                             std::fs::write(&path, backup_data)
-                                .map_err(|e| pwgen_core::Error::Io(e))?;
+                                .map_err(pwgen_core::Error::Io)?;
                             
                             Ok(())
                         }
@@ -2784,7 +2787,7 @@ impl PwGenApp {
                 if let Some(storage) = storage_guard.as_ref() {
                     // Read and deserialize the backup file
                     let backup_data = std::fs::read_to_string(&path)
-                        .map_err(|e| pwgen_core::Error::Io(e))?;
+                        .map_err(pwgen_core::Error::Io)?;
                     
                     let entries: Vec<pwgen_core::models::DecryptedPasswordEntry> = serde_json::from_str(&backup_data)
                         .map_err(|e| pwgen_core::Error::Io(std::io::Error::new(std::io::ErrorKind::InvalidData, e.to_string())))?;
@@ -3522,15 +3525,30 @@ fn load_logo_wide(ctx: &egui::Context) -> Option<egui::TextureHandle> {
     let logo_bytes = include_bytes!("../../ui/PWGenLogo-Wide.png");
     
     // Parse PNG image
-    match image::load_from_memory(logo_bytes) {
-        Ok(img) => {
-            let rgba = img.to_rgba8();
-            let (width, height) = img.dimensions();
-            let pixels = rgba.into_vec();
+    let decoder = png::Decoder::new(&logo_bytes[..]);
+    match decoder.read_info() {
+        Ok(mut reader) => {
+            let mut buf = vec![0; reader.output_buffer_size()];
+            let info = reader.next_frame(&mut buf).ok()?;
+            
+            // Convert to RGBA if needed
+            let pixels = match info.color_type {
+                png::ColorType::Rgba => buf,
+                png::ColorType::Rgb => {
+                    let mut rgba_buf = Vec::with_capacity(buf.len() * 4 / 3);
+                    for chunk in buf.chunks(3) {
+                        rgba_buf.extend_from_slice(chunk);
+                        rgba_buf.push(255); // Alpha
+                    }
+                    rgba_buf
+                },
+                _ => return None, // Unsupported format
+            };
+            let (width, height) = (info.width as usize, info.height as usize);
             
             // Convert to egui::ColorImage
             let color_image = egui::ColorImage::from_rgba_unmultiplied(
-                [width as usize, height as usize],
+                [width, height],
                 &pixels,
             );
             
@@ -3556,15 +3574,30 @@ fn load_logo_square(ctx: &egui::Context) -> Option<egui::TextureHandle> {
     let logo_bytes = include_bytes!("../../ui/PWGenLogo.png");
     
     // Parse PNG image
-    match image::load_from_memory(logo_bytes) {
-        Ok(img) => {
-            let rgba = img.to_rgba8();
-            let (width, height) = img.dimensions();
-            let pixels = rgba.into_vec();
+    let decoder = png::Decoder::new(&logo_bytes[..]);
+    match decoder.read_info() {
+        Ok(mut reader) => {
+            let mut buf = vec![0; reader.output_buffer_size()];
+            let info = reader.next_frame(&mut buf).ok()?;
+            
+            // Convert to RGBA if needed
+            let pixels = match info.color_type {
+                png::ColorType::Rgba => buf,
+                png::ColorType::Rgb => {
+                    let mut rgba_buf = Vec::with_capacity(buf.len() * 4 / 3);
+                    for chunk in buf.chunks(3) {
+                        rgba_buf.extend_from_slice(chunk);
+                        rgba_buf.push(255); // Alpha
+                    }
+                    rgba_buf
+                },
+                _ => return None, // Unsupported format
+            };
+            let (width, height) = (info.width as usize, info.height as usize);
             
             // Convert to egui::ColorImage
             let color_image = egui::ColorImage::from_rgba_unmultiplied(
-                [width as usize, height as usize],
+                [width, height],
                 &pixels,
             );
             

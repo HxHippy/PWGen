@@ -15,12 +15,12 @@ export default function Download() {
             {/* Latest Release Info */}
             <div className="card margin-bottom--lg">
               <div className="card__header">
-                <h3>📦 Latest Release: v1.0.0</h3>
+                <h3>📦 Latest Release: v1.2.0</h3>
               </div>
               <div className="card__body">
                 <p>
-                  <strong>Release Date:</strong> January 2024<br/>
-                  <strong>What's New:</strong> Complete secrets management, responsive UI, enhanced security
+                  <strong>Release Date:</strong> June 2025<br/>
+                  <strong>What's New:</strong> 30-40% smaller binaries, enhanced security, flexible builds, modern cryptography
                 </p>
               </div>
             </div>
@@ -99,10 +99,10 @@ export default function Download() {
                 <pre><code>cargo install pwgen-cli pwgen-gui</code></pre>
                 
                 <div className="code-block-title">Homebrew (macOS/Linux)</div>
-                <pre><code>brew tap your-username/pwgen<br/>brew install pwgen</code></pre>
+                <pre><code>brew tap hxhippy/pwgen<br/>brew install pwgen</code></pre>
                 
                 <div className="code-block-title">Scoop (Windows)</div>
-                <pre><code>scoop bucket add your-bucket https://github.com/your-username/scoop-bucket<br/>scoop install pwgen</code></pre>
+                <pre><code>scoop bucket add your-bucket https://github.com/hxhippy/scoop-bucket<br/>scoop install pwgen</code></pre>
 
                 <h4>🚀 Quick Install Scripts</h4>
                 <div className="code-block-title">Linux/macOS</div>

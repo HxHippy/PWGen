@@ -397,7 +397,7 @@ impl SecretTemplateManager {
                     sensitive: false,
                     default_value: None,
                     validation_pattern: Some(r"^AKIA[0-9A-Z]{16}$".to_string()),
-                    placeholder: Some("AKIAIOSFODNN7EXAMPLE".to_string()),
+                    placeholder: Some("AKIA_SAMPLE_NOT_REAL_AWS_KEY".to_string()),
                     help_text: Some("20-character access key starting with AKIA".to_string()),
                 },
                 TemplateField {
@@ -500,7 +500,7 @@ impl SecretTemplateManager {
                     sensitive: false,
                     default_value: None,
                     validation_pattern: Some(r"^AKIA[0-9A-Z]{16}$".to_string()),
-                    placeholder: Some("AKIAIOSFODNN7EXAMPLE".to_string()),
+                    placeholder: Some("AKIA_SAMPLE_NOT_REAL_AWS_KEY".to_string()),
                     help_text: None,
                 },
                 TemplateField {
@@ -724,7 +724,7 @@ impl SecretTemplateManager {
                     sensitive: true,
                     default_value: None,
                     validation_pattern: Some(r"^gh[ps]_[a-zA-Z0-9]{36}$".to_string()),
-                    placeholder: Some("ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx".to_string()),
+                    placeholder: Some("ghp_SAMPLE_NOT_REAL_GITHUB_TOKEN_XXXXX".to_string()),
                     help_text: Some("GitHub personal access token (classic or fine-grained)".to_string()),
                 },
                 TemplateField {
@@ -873,7 +873,7 @@ impl SecretTemplateManager {
                     sensitive: true,
                     default_value: None,
                     validation_pattern: Some(r"^sk_(test_|live_)[a-zA-Z0-9]{24}$".to_string()),
-                    placeholder: Some("sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxx".to_string()),
+                    placeholder: Some("sk_test_SAMPLE_NOT_REAL_STRIPE_KEY".to_string()),
                     help_text: Some("Stripe secret key (server-side)".to_string()),
                 },
                 TemplateField {

@@ -252,7 +252,7 @@ impl SecretsStorage {
             let type_placeholders = secret_types.iter().map(|_| "?").collect::<Vec<_>>().join(",");
             query.push_str(&format!(" AND secret_type IN ({})", type_placeholders));
             for secret_type in secret_types {
-                bindings.push(serde_json::to_string(secret_type).map_err(|e| Error::Serialization(e))?);
+                bindings.push(serde_json::to_string(secret_type).map_err(Error::Serialization)?);
             }
         }
         

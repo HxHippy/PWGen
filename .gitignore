@@ -119,3 +119,34 @@ tauri.conf.json
 # Documentation builds
 docs/_build/
 site/
+
+# Deployment and build scripts (contain sensitive server info)
+deploy.sh
+deploy-website.sh
+deploy-simple.sh
+deploy-template.sh
+build-all-installers.sh
+publish-snap.sh
+*.deploy.sh
+*-deploy.sh
+server-*.sh
+
+# Build artifacts
+*.snap
+*.pkg
+*.dmg
+*.msi
+*.deb
+*.rpm
+*.appimage
+
+# Snap build artifacts
+parts/
+stage/
+prime/
+snap/.snapcraft/
+*.snap
+
+# Release files
+releases/
+installers/

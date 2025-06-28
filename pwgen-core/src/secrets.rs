@@ -191,7 +191,7 @@ impl Zeroize for SecretData {
                     fingerprint.zeroize();
                 }
             }
-            SecretData::ApiKey { api_key, api_secret, permissions, rotation_info, usage_stats, .. } => {
+            SecretData::ApiKey { api_key, api_secret, permissions,  usage_stats, .. } => {
                 api_key.zeroize();
                 if let Some(secret) = api_secret {
                     secret.zeroize();
@@ -372,6 +372,7 @@ pub enum CloudProvider {
 
 /// Metadata associated with secrets
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Default)]
 pub struct SecretMetadata {
     pub template: Option<String>,
     pub environment: Option<String>,
@@ -462,6 +463,7 @@ pub enum FieldType {
 
 /// Search and filter criteria for secrets
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Default)]
 pub struct SecretFilter {
     pub query: Option<String>,
     pub secret_types: Option<Vec<SecretType>>,
@@ -474,35 +476,7 @@ pub struct SecretFilter {
     pub classification: Option<DataClassification>,
 }
 
-impl Default for SecretFilter {
-    fn default() -> Self {
-        Self {
-            query: None,
-            secret_types: None,
-            tags: None,
-            environment: None,
-            project: None,
-            expires_before: None,
-            expires_after: None,
-            favorite_only: false,
-            classification: None,
-        }
-    }
-}
 
-impl Default for SecretMetadata {
-    fn default() -> Self {
-        Self {
-            template: None,
-            environment: None,
-            project: None,
-            owner: None,
-            team: None,
-            compliance: None,
-            audit_log: vec![],
-        }
-    }
-}
 
 /// Manager for secret operations
 pub struct SecretManager;

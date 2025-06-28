@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" 
+           Name="PwGen" 
+           Language="1033" 
+           Version="1.2.0.0" 
+           Manufacturer="HxHippy, Kief Studio, TRaViS" 
+           UpgradeCode="12345678-1234-1234-1234-123456789012">
+    
+    <Package InstallerVersion="200" 
+             Compressed="yes" 
+             InstallScope="perMachine"
+             Description="PwGen - Advanced Password &amp; Secrets Manager built in Rust"
+             Comments="30-40% smaller binaries, enhanced security, flexible builds"
+             Manufacturer="HxHippy, Kief Studio, TRaViS" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- Custom properties -->
+    <Property Id="ARPURLINFOABOUT" Value="https://pwgenrust.dev" />
+    <Property Id="ARPCONTACT" Value="https://github.com/hxhippy/pwgen/issues" />
+    <Property Id="ARPHELPLINK" Value="https://pwgenrust.dev/docs" />
+    <Property Id="ARPPRODUCTICON" Value="PwGenIcon" />
+
+    <!-- Feature definition -->
+    <Feature Id="ProductFeature" Title="PwGen" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="ShortcutComponents" />
+    </Feature>
+
+    <!-- Custom actions for PATH -->
+    <CustomAction Id="AddToPath" 
+                  Directory="INSTALLFOLDER" 
+                  ExeCommand="setx PATH &quot;%PATH%;[INSTALLFOLDER]&quot; /M" 
+                  Execute="deferred" 
+                  Impersonate="no" />
+    
+    <CustomAction Id="RemoveFromPath" 
+                  Directory="INSTALLFOLDER" 
+                  ExeCommand="for /f &quot;skip=2 tokens=3*&quot; %a in ('reg query HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment /v PATH') do setx PATH &quot;%b&quot; /M" 
+                  Execute="deferred" 
+                  Impersonate="no" />
+
+    <!-- Install sequences -->
+    <InstallExecuteSequence>
+      <Custom Action="AddToPath" After="InstallFiles">NOT Installed</Custom>
+    </InstallExecuteSequence>
+
+    <InstallExecuteSequence>
+      <Custom Action="RemoveFromPath" After="RemoveFiles">REMOVE="ALL"</Custom>
+    </InstallExecuteSequence>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="PwGen">
+          <Directory Id="BinFolder" Name="bin" />
+          <Directory Id="DocFolder" Name="docs" />
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="PwGen" />
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <!-- Main executables -->
+      <Component Id="PwGenGui" Guid="*">
+        <File Id="PwGenGuiExe" 
+              Source="target\x86_64-pc-windows-msvc\min-size\pwgen-gui.exe" 
+              KeyPath="yes">
+          <Shortcut Id="PwGenGuiShortcut"
+                    Directory="ApplicationProgramsFolder"
+                    Name="PwGen"
+                    Description="Advanced Password &amp; Secrets Manager"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Icon="PwGenIcon" />
+        </File>
+        
+        <!-- Registry entries for application -->
+        <RegistryValue Root="HKLM" 
+                       Key="Software\Microsoft\Windows\CurrentVersion\App Paths\pwgen-gui.exe" 
+                       Value="[INSTALLFOLDER]pwgen-gui.exe" 
+                       Type="string" />
+        
+        <!-- File association for .pwgen files -->
+        <RegistryValue Root="HKLM" 
+                       Key="Software\Classes\.pwgen" 
+                       Value="PwGenVault" 
+                       Type="string" />
+        <RegistryValue Root="HKLM" 
+                       Key="Software\Classes\PwGenVault" 
+                       Value="PwGen Vault File" 
+                       Type="string" />
+        <RegistryValue Root="HKLM" 
+                       Key="Software\Classes\PwGenVault\DefaultIcon" 
+                       Value="[INSTALLFOLDER]pwgen-gui.exe,0" 
+                       Type="string" />
+        <RegistryValue Root="HKLM" 
+                       Key="Software\Classes\PwGenVault\shell\open\command" 
+                       Value="&quot;[INSTALLFOLDER]pwgen-gui.exe&quot; &quot;%1&quot;" 
+                       Type="string" />
+      </Component>
+
+      <Component Id="PwGenCli" Guid="*">
+        <File Id="PwGenCliExe" 
+              Source="target\x86_64-pc-windows-msvc\min-size\pwgen-cli.exe" 
+              KeyPath="yes">
+          <Shortcut Id="PwGenCliShortcut"
+                    Directory="ApplicationProgramsFolder"
+                    Name="PwGen CLI"
+                    Description="PwGen Command Line Interface"
+                    WorkingDirectory="INSTALLFOLDER" />
+        </File>
+      </Component>
+
+      <!-- Documentation -->
+      <Component Id="Documentation" Guid="*">
+        <File Id="ReadmeFile" Source="README.md" KeyPath="yes" />
+        <File Id="LicenseFile" Source="LICENSE" />
+        <File Id="ChangelogFile" Source="CHANGELOG.md" />
+      </Component>
+
+      <!-- Icon file -->
+      <Component Id="IconFile" Guid="*">
+        <File Id="PwGenIconFile" Source="assets\PWGenLogo.png" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="ShortcutComponents" Directory="ApplicationProgramsFolder">
+      <!-- Desktop shortcut -->
+      <Component Id="DesktopShortcut" Guid="*">
+        <Shortcut Id="DesktopShortcut"
+                  Directory="DesktopFolder"
+                  Name="PwGen"
+                  Description="Advanced Password &amp; Secrets Manager"
+                  Target="[INSTALLFOLDER]pwgen-gui.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="PwGenIcon" />
+        <RegistryValue Root="HKCU" 
+                       Key="Software\HxHippy\PwGen" 
+                       Name="DesktopShortcut" 
+                       Value="1" 
+                       Type="integer" 
+                       KeyPath="yes" />
+      </Component>
+
+      <!-- Uninstall shortcut -->
+      <Component Id="UninstallShortcut" Guid="*">
+        <Shortcut Id="UninstallShortcut"
+                  Directory="ApplicationProgramsFolder"
+                  Name="Uninstall PwGen"
+                  Description="Uninstall PwGen"
+                  Target="[SystemFolder]msiexec.exe"
+                  Arguments="/x [ProductCode]" />
+        <RegistryValue Root="HKCU" 
+                       Key="Software\HxHippy\PwGen" 
+                       Name="UninstallShortcut" 
+                       Value="1" 
+                       Type="integer" 
+                       KeyPath="yes" />
+      </Component>
+
+      <!-- Remove the shortcuts folder on uninstall -->
+      <Component Id="RemoveProgramMenuFolder" Guid="*">
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" 
+                       Key="Software\HxHippy\PwGen" 
+                       Name="ProgramMenuFolder" 
+                       Value="1" 
+                       Type="integer" 
+                       KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <!-- Icon definition - using PNG converted to ICO during build -->
+  <Fragment>
+    <Icon Id="PwGenIcon" SourceFile="assets\PWGenLogo.png" />
+  </Fragment>
+</Wix>

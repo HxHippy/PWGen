@@ -1,0 +1,21 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=PwGen
+GenericName=Password Manager
+Comment=Advanced Password & Secrets Manager built in Rust
+Exec=pwgen-gui
+Icon=${SNAP}/usr/share/pixmaps/pwgen.png
+Terminal=false
+Categories=Utility;Security;Office;
+Keywords=password;manager;security;encryption;secrets;vault;
+StartupNotify=true
+StartupWMClass=pwgen-gui
+MimeType=application/x-pwgen-vault;
+
+[Desktop Action CLI]
+Name=Open CLI
+Exec=pwgen-cli
+Icon=${SNAP}/usr/share/pixmaps/pwgen.png
+
+Actions=CLI;

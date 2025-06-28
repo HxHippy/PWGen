@@ -226,3 +226,216 @@
   margin: 0.25rem;
   font-size: 0.875rem;
 }
+
+/* Hero logo styling */
+.hero-logo {
+  margin-bottom: 2rem;
+}
+
+.hero-logo-image {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Install command section */
+.install-section {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 2rem 0;
+  backdrop-filter: blur(10px);
+}
+
+.install-section h3 {
+  color: white;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.os-selector {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.os-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.os-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.os-button.active {
+  background: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.install-command-container {
+  position: relative;
+}
+
+.install-command {
+  position: relative;
+}
+
+.copy-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+  z-index: 10;
+}
+
+.copy-button:hover {
+  background: #0056b3;
+}
+
+.install-alt {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+/* Screenshots section */
+.screenshots-section {
+  padding: 4rem 0;
+  background: #f8f9fa;
+}
+
+[data-theme='dark'] .screenshots-section {
+  background: #1b1b1d;
+}
+
+.screenshot-card {
+  text-align: center;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 2rem;
+}
+
+[data-theme='dark'] .screenshot-card {
+  background: #2a2a2e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.screenshot-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.screenshot-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 0.5rem;
+  border: 1px solid #e1e4e8;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme='dark'] .screenshot-image {
+  border-color: #444;
+}
+
+.screenshot-card h3 {
+  color: var(--ifm-color-primary);
+  margin-bottom: 1rem;
+}
+
+/* Code examples section */
+.code-examples-section {
+  padding: 4rem 0;
+  background: white;
+}
+
+[data-theme='dark'] .code-examples-section {
+  background: #181920;
+}
+
+.code-showcase {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 1rem;
+  border: 1px solid #e1e4e8;
+}
+
+[data-theme='dark'] .code-showcase {
+  background: #2a2a2e;
+  border-color: #444;
+}
+
+.code-showcase h3 {
+  color: var(--ifm-color-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Enhanced code block styling */
+.prism-code {
+  border-radius: 0.5rem !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-logo-image {
+    max-width: 400px;
+  }
+  
+  .install-section {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .os-selector {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .os-button {
+    width: 200px;
+  }
+  
+  .copy-button {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-top: 1rem;
+    width: 100%;
+  }
+  
+  .screenshot-card {
+    padding: 1rem;
+  }
+  
+  .code-showcase {
+    padding: 1rem;
+  }
+}

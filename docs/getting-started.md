@@ -1,6 +1,14 @@
-# Getting Started with PwGen
+# Getting Started with PwGen v1.2
 
 Welcome to PwGen! This guide will help you get up and running with your new password and secrets manager.
+
+## 🆕 What's New in v1.2
+
+- **30-40% smaller binaries** with optimized builds
+- **Flexible build options** for different platforms and requirements
+- **Reduced Windows dependencies** with minimal builds
+- **Enhanced security** with modern cryptography (SHA-256 only)
+- **Better performance** with dependency optimizations
 
 ## 📦 Installation
 
@@ -10,22 +18,65 @@ Choose your platform:
 
 #### Linux
 ```bash
-curl -sSL https://raw.githubusercontent.com/your-username/pwgen/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/hxhippy/pwgen/main/scripts/install.sh | bash
 ```
 
 #### macOS
 ```bash
-curl -sSL https://raw.githubusercontent.com/your-username/pwgen/main/scripts/install-macos.sh | bash
+curl -sSL https://raw.githubusercontent.com/hxhippy/pwgen/main/scripts/install-macos.sh | bash
 ```
 
 #### Windows (PowerShell as Administrator)
 ```powershell
-irm https://raw.githubusercontent.com/your-username/pwgen/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/hxhippy/pwgen/main/scripts/install.ps1 | iex
 ```
 
-### From Source
+### From Source (Recommended for v1.2)
 
-If you prefer to build from source, see our [Installation Guide](../README.md#from-source).
+For the latest optimizations and build options:
+
+```bash
+# Clone the repository
+git clone https://github.com/hxhippy/pwgen.git
+cd pwgen
+
+# Choose your build type:
+
+# Standard build (recommended)
+cargo build --release
+
+# Minimal build (fewer Windows dependencies)
+cargo build --release --no-default-features
+
+# Maximum optimization build
+cargo build --profile min-size
+
+# Install
+cargo install --path pwgen-cli --path pwgen-gui
+```
+
+### 🛠️ Build Options
+
+#### For Windows Users with SDK Issues
+```bash
+# Use minimal build to reduce Windows SDK requirements
+cargo build --release --no-default-features
+```
+
+#### For Distribution/Production
+```bash
+# Use maximum optimization for smallest binaries
+cargo build --profile min-size
+```
+
+#### Custom Feature Selection
+```bash
+# Only clipboard support
+cargo build --release --no-default-features --features clipboard
+
+# Only document compression
+cargo build --release --no-default-features --features document-compression
+```
 
 ## 🚀 First Launch
 
@@ -231,11 +282,13 @@ default_symbols = true
 - Use unique passwords for each account
 - Enable two-factor authentication where available
 
-### Vault Security
+### Vault Security (Enhanced in v1.2)
 - Your vault file is encrypted with AES-256-GCM
+- **Modern cryptography**: SHA-256 fingerprints (MD5 removed for security)
 - Data is only decrypted in memory when needed
 - Memory is securely cleared after use
 - No data is sent over the network
+- **Optimized dependencies**: Reduced attack surface with fewer dependencies
 
 ## 🆘 Troubleshooting
 
@@ -255,6 +308,7 @@ default_symbols = true
 - Large vaults (1000+ entries) may load slowly
 - Consider organizing with tags for better navigation
 - Regular cleanup of unused entries helps
+- **v1.2 improvement**: Optimized builds provide better performance with smaller memory footprint
 
 **Import Issues:**
 - Ensure source file is in the correct format
@@ -264,8 +318,8 @@ default_symbols = true
 ### Getting Help
 
 - 📖 [Full Documentation](../README.md)
-- 🐛 [Report Issues](https://github.com/your-username/pwgen/issues)
-- 💬 [Community Discussions](https://github.com/your-username/pwgen/discussions)
+- 🐛 [Report Issues](https://github.com/hxhippy/pwgen/issues)
+- 💬 [Community Discussions](https://github.com/hxhippy/pwgen/discussions)
 
 ## 🎓 Next Steps
 
@@ -284,6 +338,8 @@ Once comfortable with basics:
 - **Browser extension** integration (coming soon)
 - **Team sharing** features
 - **API server** for integrations
+- **v1.2**: **Conditional builds** for specific deployment scenarios
+- **v1.2**: **Platform-optimized binaries** for better performance
 
 ---
 

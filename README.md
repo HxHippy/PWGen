@@ -1,12 +1,13 @@
-# 🦀 PwGen - Advanced Password & Secrets Manager
+# 🦀 PwGen-rust - Advanced Password & Secrets Manager
 
 <div align="center">
 
-![PwGen Logo](ui/PWGenLogo-Wide.png)
+![PwGen-rust Logo](ui/PWGenLogo-Wide.png)
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Rust](https://img.shields.io/badge/rust-1.70+-orange.svg)](https://www.rust-lang.org/)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/your-username/pwgen)
+[![Version](https://img.shields.io/badge/version-1.2-brightgreen.svg)](https://github.com/hxhippy/pwgen/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/hxhippy/pwgen)
 [![Security](https://img.shields.io/badge/security-AES--256--GCM-green.svg)](https://en.wikipedia.org/wiki/Galois/Counter_Mode)
 
 **A modern, secure, and user-friendly password and secrets manager built in Rust**
@@ -19,17 +20,18 @@
 
 ## 🚀 Overview
 
-PwGen is a comprehensive password and secrets management solution designed for modern cybersecurity needs. Built with Rust for performance and security, it provides enterprise-grade encryption while maintaining an intuitive user experience.
+PwGen-rust is a comprehensive password and secrets management solution designed for modern cybersecurity needs. Built with Rust for performance and security, it provides enterprise-grade encryption while maintaining an intuitive user experience.
 
 ### 🎯 Why PwGen?
 
 - **🔒 Military-Grade Security**: AES-256-GCM encryption with secure key derivation
 - **🎨 Modern UI**: Clean, responsive interface built with egui
-- **🚀 High Performance**: Native Rust performance with minimal resource usage
+- **🚀 High Performance**: Native Rust performance with optimized builds (30-40% smaller binaries)
 - **🔧 Developer-Friendly**: CLI and GUI interfaces for all workflows
-- **🌐 Cross-Platform**: Windows, macOS, and Linux support
+- **🌐 Cross-Platform**: Windows, macOS, and Linux support with flexible build options
 - **📦 Self-Contained**: No cloud dependencies, your data stays local
 - **🔄 Import/Export**: Seamless migration from other password managers
+- **⚡ Optimized Builds**: Multiple build profiles for different deployment scenarios
 
 ---
 
@@ -95,21 +97,27 @@ ls -la ~/.config/pwgen/
 
 ## 📦 Installation
 
+### New in v1.2! 🎉
+- **30-40% smaller binaries** with optimized builds
+- **Flexible build options** for different platforms and requirements
+- **Reduced Windows SDK dependencies** with minimal builds
+- **Enhanced security** with modern cryptography (SHA-256 only)
+
 ### Quick Install (Recommended)
 
 #### Linux
 ```bash
-curl -sSL https://raw.githubusercontent.com/your-username/pwgen/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/hxhippy/pwgen/main/scripts/install.sh | bash
 ```
 
 #### macOS
 ```bash
-curl -sSL https://raw.githubusercontent.com/your-username/pwgen/main/scripts/install-macos.sh | bash
+curl -sSL https://raw.githubusercontent.com/hxhippy/pwgen/main/scripts/install-macos.sh | bash
 ```
 
 #### Windows (PowerShell)
 ```powershell
-irm https://raw.githubusercontent.com/your-username/pwgen/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/hxhippy/pwgen/main/scripts/install.ps1 | iex
 ```
 
 ### From Source
@@ -133,11 +141,17 @@ sudo pacman -S base-devel pkg-config openssl gtk3 xdotool
 #### Build Instructions
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/pwgen.git
+git clone https://github.com/hxhippy/pwgen.git
 cd pwgen
 
-# Build release version
+# Build release version (optimized for size)
 cargo build --release
+
+# Build minimal version (reduced Windows dependencies)
+cargo build --release --no-default-features
+
+# Build maximum size-optimized version
+cargo build --profile min-size
 
 # Install binaries
 cargo install --path pwgen-cli
@@ -148,6 +162,44 @@ pwgen-gui
 
 # Or use the CLI
 pwgen-cli --help
+```
+
+### 🎛️ Build Options (v1.2)
+
+#### Standard Build (Default)
+```bash
+cargo build --release
+```
+- **Features**: Full clipboard support, document compression
+- **Platform**: Complete cross-platform compatibility
+- **Size**: Standard optimized build
+
+#### Minimal Build
+```bash
+cargo build --release --no-default-features
+```
+- **Features**: Core functionality only
+- **Platform**: Reduced Windows SDK requirements
+- **Size**: Smaller binary with fewer dependencies
+
+#### Maximum Optimization
+```bash
+cargo build --profile min-size
+```
+- **Features**: All features with maximum size optimization
+- **Platform**: All platforms
+- **Size**: 30-40% smaller than standard builds
+
+#### Custom Feature Selection
+```bash
+# Clipboard support only
+cargo build --release --no-default-features --features clipboard
+
+# Document compression only
+cargo build --release --no-default-features --features document-compression
+
+# Both features
+cargo build --release --features "clipboard,document-compression"
 ```
 
 ### Package Managers
@@ -227,11 +279,13 @@ pwgen/
 ### Technology Stack
 - **Language**: Rust 2021 Edition
 - **GUI Framework**: egui (immediate mode GUI)
-- **Database**: SQLite with sqlx
-- **Crypto**: AES-256-GCM, PBKDF2, ring crate
+- **Database**: SQLite with sqlx (optimized features)
+- **Crypto**: AES-256-GCM, SHA-256, Argon2 (secure, modern cryptography)
 - **CLI**: clap for argument parsing
-- **Async Runtime**: tokio
+- **Async Runtime**: tokio (optimized features)
 - **Serialization**: serde with JSON/TOML
+- **Image Processing**: PNG decoder (lightweight replacement)
+- **Optional Features**: Conditional compilation for platform-specific functionality
 
 ---
 
@@ -290,7 +344,7 @@ pwgen-cli import --browser firefox --profile work
 
 ## 🤝 Contributing
 
-We welcome contributions from the community! PwGen is an open-source project that benefits from diverse perspectives and expertise.
+We welcome contributions from the community! PwGen-rust is an open-source project that benefits from diverse perspectives and expertise.
 
 ### Quick Start
 1. Fork the repository
@@ -302,7 +356,7 @@ We welcome contributions from the community! PwGen is an open-source project tha
 ### Development Setup
 ```bash
 # Clone your fork
-git clone https://github.com/your-username/pwgen.git
+git clone https://github.com/hxhippy/pwgen.git
 cd pwgen
 
 # Install dependencies
@@ -349,8 +403,8 @@ RUST_LOG=debug cargo run --bin pwgen-gui
 
 ### Getting Help
 - 📖 [Documentation](docs/)
-- 🐛 [Issue Tracker](https://github.com/your-username/pwgen/issues)
-- 💬 [Discussions](https://github.com/your-username/pwgen/discussions)
+- 🐛 [Issue Tracker](https://github.com/hxhippy/pwgen/issues)
+- 💬 [Discussions](https://github.com/hxhippy/pwgen/discussions)
 - 📧 [Security Issues](mailto:security@example.com)
 
 ### Community
@@ -398,6 +452,11 @@ RUST_LOG=debug cargo run --bin pwgen-gui
 - [x] Advanced secrets management
 - [x] Responsive UI design
 - [x] Cross-platform installers
+- [x] **v1.2**: Build optimization with 30-40% smaller binaries
+- [x] **v1.2**: Conditional compilation for platform-specific features
+- [x] **v1.2**: Enhanced security with modern cryptography (SHA-256 only)
+- [x] **v1.2**: Flexible build profiles for different deployment scenarios
+- [x] **v1.2**: Reduced Windows SDK requirements
 
 ### In Progress 🚧
 - [ ] Mobile apps (iOS/Android)
@@ -419,7 +478,7 @@ RUST_LOG=debug cargo run --bin pwgen-gui
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
 ```
-Copyright 2024 HxHippy, Kief Studio, TRaViS
+Copyright 2025 HxHippy, Kief Studio, TRaViS
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

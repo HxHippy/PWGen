@@ -222,7 +222,7 @@ impl Storage {
         .await?
         .ok_or_else(|| Error::EntryNotFound(id.to_string()))?;
         
-        Ok(self.row_to_entry(row)?)
+        self.row_to_entry(row)
     }
     
     pub async fn delete_entry(&self, id: &str) -> Result<()> {
@@ -277,7 +277,7 @@ impl Storage {
             let entry = self.row_to_entry(row)?;
             if let Some(tags) = &filter.tags {
                 let entry_tags: Vec<String> = serde_json::from_str(
-                    entry.tags.get(0).map(|s| s.as_str()).unwrap_or("[]")
+                    entry.tags.first().map(|s| s.as_str()).unwrap_or("[]")
                 )?;
                 if !tags.iter().any(|tag| entry_tags.contains(tag)) {
                     continue;
