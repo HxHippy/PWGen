@@ -69,7 +69,7 @@ const config = {
       // Replace with your project's social card
       image: 'img/pwgen-social-card.jpg',
       navbar: {
-        title: 'PwGen',
+        title: 'PwGen-rust',
         logo: {
           alt: 'PwGen Logo',
           src: 'img/PWGenLogo.png',
