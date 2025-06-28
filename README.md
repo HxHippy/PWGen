@@ -16,6 +16,21 @@
 
 </div>
 
+## 📸 Screenshots
+
+<div align="center">
+
+### Desktop Application Interface
+![PwGen Password Manager](website/static/img/screenshot-main.png)
+
+### Password Generator
+![PwGen Password Generator](website/static/img/screenshot-generator.png)
+
+### Application Preview
+![PwGen Application Preview](website/static/img/screenshot-angle.png)
+
+</div>
+
 ---
 
 ## 🚀 Overview

@@ -4,36 +4,77 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* PwGen-rust custom theme colors - based on Rust crab logo */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #E20041;
+  --ifm-color-primary-dark: #cb003a;
+  --ifm-color-primary-darker: #bf0037;
+  --ifm-color-primary-darkest: #9e002d;
+  --ifm-color-primary-light: #e51a55;
+  --ifm-color-primary-lighter: #e7255a;
+  --ifm-color-primary-lightest: #ed4570;
+  --ifm-color-secondary: #f9f4e6;
+  --ifm-color-secondary-dark: #f5edd1;
+  --ifm-color-secondary-darker: #f3e9c7;
+  --ifm-color-secondary-darkest: #ead89f;
+  --ifm-color-secondary-light: #fcf8ef;
+  --ifm-color-secondary-lighter: #fdf9f2;
+  --ifm-color-secondary-lightest: #fff8f0;
+  --ifm-background-color: #fff8f0;
+  --ifm-background-surface-color: #ffffff;
   --ifm-code-font-size: 95%;
   --ifm-font-family-monospace: 'Fira Code', 'Monaco', 'Consolas', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(226, 0, 65, 0.1);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Dark mode theme - darker background with bright red accents */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #ff1a5e;
+  --ifm-color-primary-dark: #ff0050;
+  --ifm-color-primary-darker: #f50049;
+  --ifm-color-primary-darkest: #cc003c;
+  --ifm-color-primary-light: #ff3366;
+  --ifm-color-primary-lighter: #ff4070;
+  --ifm-color-primary-lightest: #ff6687;
+  --ifm-color-secondary: #1a1a1a;
+  --ifm-color-secondary-dark: #0d0d0d;
+  --ifm-color-secondary-darker: #0a0a0a;
+  --ifm-color-secondary-darkest: #000000;
+  --ifm-color-secondary-light: #262626;
+  --ifm-color-secondary-lighter: #2d2d2d;
+  --ifm-color-secondary-lightest: #404040;
+  --ifm-background-color: #0d0d0d;
+  --ifm-background-surface-color: #1a1a1a;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 26, 94, 0.2);
 }
 
-/* Custom PwGen branding */
+/* Custom PwGen-rust branding with screenshot background */
 .hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #E20041 0%, #9e002d 100%);
   color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10%;
+  width: 60%;
+  height: 100%;
+  background-image: url('/img/screenshot-angle.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right center;
+  opacity: 0.15;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
 }
 
 .hero__title {
@@ -73,7 +114,7 @@
   margin: 0.25rem;
 }
 
-/* Download buttons */
+/* Download buttons with Rust theme */
 .download-buttons {
   display: flex;
   gap: 1rem;
@@ -86,47 +127,52 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: #007bff;
+  background: var(--ifm-color-primary);
   color: white !important;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   text-decoration: none !important;
   font-weight: 600;
   transition: background-color 0.2s;
+  border: 2px solid transparent;
 }
 
 .download-button:hover {
-  background: #0056b3;
+  background: var(--ifm-color-primary-dark);
   color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(226, 0, 65, 0.3);
 }
 
 .download-button--primary {
-  background: #28a745;
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary-light);
 }
 
 .download-button--primary:hover {
-  background: #1e7e34;
+  background: var(--ifm-color-primary-darker);
+  border-color: var(--ifm-color-primary);
 }
 
 /* Stats section */
 .stats {
-  background: #f8f9fa;
+  background: var(--ifm-color-secondary-lightest);
   padding: 3rem 0;
   text-align: center;
 }
 
 [data-theme='dark'] .stats {
-  background: #1b1b1d;
+  background: var(--ifm-color-secondary-dark);
 }
 
 /* Security section */
 .security-section {
   padding: 4rem 0;
-  background: #f8f9fa;
+  background: var(--ifm-color-secondary-lightest);
 }
 
 [data-theme='dark'] .security-section {
-  background: #1b1b1d;
+  background: var(--ifm-color-secondary-dark);
 }
 
 .stats__item {
@@ -169,6 +215,11 @@
     flex-direction: column;
     align-items: center;
   }
+  
+  /* Hide screenshot background on mobile for better readability */
+  .hero::after {
+    display: none;
+  }
 }
 
 /* Custom admonition styles */
@@ -176,10 +227,10 @@
   margin-right: 0.5rem;
 }
 
-/* Custom font integration */
+/* Custom font integration - Fira Code for code blocks */
 @font-face {
   font-family: 'Fira Code';
-  src: url('/fonts/FiraCode-Regular.ttf') format('truetype');
+  src: url('/static/fonts/FiraCode-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -187,7 +238,7 @@
 
 @font-face {
   font-family: 'Fira Code';
-  src: url('/fonts/FiraCode-Medium.ttf') format('truetype');
+  src: url('/static/fonts/FiraCode-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -419,6 +470,14 @@
 /* Enhanced code block styling */
 .prism-code {
   border-radius: 0.5rem !important;
+  font-family: 'Fira Code', var(--ifm-font-family-monospace) !important;
+}
+
+/* Ensure monospace font usage */
+code, 
+.codeBlockContainer_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Container-styles-module,
+.codeBlockContent_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Content-styles-module {
+  font-family: 'Fira Code', var(--ifm-font-family-monospace) !important;
 }
 
 /* Responsive adjustments */

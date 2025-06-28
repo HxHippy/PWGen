@@ -2,13 +2,22 @@
 sidebar_position: 1
 ---
 
-# Welcome to PwGen
+# Welcome to PwGen-rust
 
-Welcome to **PwGen** - the advanced password and secrets manager built in Rust! 🦀
+Welcome to **PwGen-rust** - the advanced password and secrets manager built in Rust! 🦀
 
-## What is PwGen?
+## What is PwGen-rust?
 
-PwGen is a modern, secure, and user-friendly password and secrets management solution designed for individuals, developers, and teams. Built with Rust for maximum performance and security, PwGen provides enterprise-grade encryption while maintaining an intuitive user experience.
+PwGen-rust is a modern, secure, and user-friendly password and secrets management solution designed for individuals, developers, and teams. Built with Rust for maximum performance and security, PwGen-rust provides enterprise-grade encryption while maintaining an intuitive user experience.
+
+### 🎉 v1.2.0 Optimization Release
+
+**Latest improvements:**
+- **30-40% smaller binaries** through dependency optimization
+- **Enhanced security** with modern cryptography (SHA-256 only)
+- **Flexible build options** for different deployment scenarios
+- **Cross-platform installers** (Snap, NSIS, WiX, PKG, DMG)
+- **Conditional compilation** for platform-specific features
 
 ### 🎯 Key Features
 
@@ -50,12 +59,20 @@ Get up and running with PwGen in minutes:
 
 Choose your platform on our [download page](/download) or use our quick install scripts:
 
-```bash title="Linux/macOS"
-curl -sSL https://pwgenrust.dev/install.sh | bash
+```bash title="Linux (Snap)"
+# Manual install (pending store approval)
+wget https://github.com/hxhippy/pwgen/releases/download/v1.2.0/pwgen-rust_1.2.0_amd64.snap
+sudo snap install --dangerous pwgen-rust_1.2.0_amd64.snap
+```
+
+```bash title="macOS"
+# Download from GitHub releases
+# https://github.com/hxhippy/pwgen/releases/latest
 ```
 
 ```powershell title="Windows"
-irm https://pwgenrust.dev/install.ps1 | iex
+# Download from GitHub releases
+# https://github.com/hxhippy/pwgen/releases/latest
 ```
 
 ### 2. Create Your First Vault
@@ -85,8 +102,8 @@ pwgen-cli password add --site github.com --username your-username
 
 ## Community & Support
 
-- 🐛 **[Report Issues](https://github.com/your-username/pwgen/issues)** - Bug reports and feature requests
-- 💬 **[Discussions](https://github.com/your-username/pwgen/discussions)** - Community support
+- 🐛 **[Report Issues](https://github.com/hxhippy/pwgen/issues)** - Bug reports and feature requests
+- 💬 **[Discussions](https://github.com/hxhippy/pwgen/discussions)** - Community support
 - 🤝 **[Contributing](developers/contributing)** - Help improve PwGen
 - 🔒 **[Security](security/reporting)** - Report security vulnerabilities
 
@@ -100,4 +117,4 @@ PwGen is proudly powered by:
 
 ---
 
-Ready to secure your digital life? **[Download PwGen now](/download)** and experience the future of password management! 🚀
+Ready to secure your digital life? **[Download PwGen-rust now](/download)** and experience the future of password management! 🚀
