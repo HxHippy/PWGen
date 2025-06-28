@@ -26,8 +26,8 @@
 ### Password Generator
 ![PwGen Password Generator](website/static/img/screenshot-generator.png)
 
-### Application Preview
-![PwGen Application Preview](website/static/img/screenshot-angle.png)
+### Application Banner
+![PwGen Application Banner](ui/PWGen-Banner.png)
 
 </div>
 

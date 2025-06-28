@@ -48,33 +48,10 @@
   --docusaurus-highlighted-code-line-bg: rgba(255, 26, 94, 0.2);
 }
 
-/* Custom PwGen-rust branding with screenshot background */
+/* Custom PwGen-rust branding with dark background */
 .hero {
-  background: linear-gradient(135deg, #E20041 0%, #9e002d 100%);
+  background: #0d0d0d;
   color: white;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -10%;
-  width: 60%;
-  height: 100%;
-  background-image: url('/img/screenshot-angle.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right center;
-  opacity: 0.15;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.hero .container {
-  position: relative;
-  z-index: 2;
 }
 
 .hero__title {
@@ -216,10 +193,6 @@
     align-items: center;
   }
   
-  /* Hide screenshot background on mobile for better readability */
-  .hero::after {
-    display: none;
-  }
 }
 
 /* Custom admonition styles */
