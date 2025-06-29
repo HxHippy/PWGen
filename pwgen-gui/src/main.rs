@@ -3631,7 +3631,7 @@ fn handle_tray_event(_app: &mut PwGenApp, _ctx: &egui::Context) {
 
 fn main() -> eframe::Result<()> {
     // Load icon
-    let icon_bytes = include_bytes!("../../ui/PWGenLogo.png");
+    let icon_bytes = include_bytes!("../icons/PWGenLogo.png");
     let icon = eframe::icon_data::from_png_bytes(icon_bytes).unwrap();
     
     let native_options = eframe::NativeOptions {

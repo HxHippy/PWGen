@@ -158,3 +158,14 @@ snap/.snapcraft/
 # Release files
 releases/
 installers/
+release-assets/
+create-release.sh
+
+# Old UI files (legacy)
+ui/
+
+# Internal documentation
+DOCUMENTATION_UPDATE_SUMMARY_*.md
+OPTIMIZATION_PLAN_*.md
+OPTIMIZATION_RESULTS_*.md
+URL_AND_DATE_CORRECTIONS_*.md
