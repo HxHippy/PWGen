@@ -233,9 +233,10 @@ default_symbols = true
 
 ### Vault Security
 - Your vault file is encrypted with AES-256-GCM
+- Key derivation uses Argon2 (memory-hard algorithm)
 - Data is only decrypted in memory when needed
-- Memory is securely cleared after use
-- No data is sent over the network
+- Memory is securely cleared after use (Rust's zeroization)
+- No data is sent over the network - fully local-first architecture
 
 ## 🆘 Troubleshooting
 

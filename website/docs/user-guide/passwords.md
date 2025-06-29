@@ -4,11 +4,11 @@ sidebar_position: 1
 
 # Password Management
 
-Master the art of secure password storage and management with PwGen.
+Master the art of secure password storage and management with PwGen-rust.
 
 ## Overview
 
-PwGen's password management system provides secure, encrypted storage for all your login credentials. Each password entry can include multiple fields and metadata for comprehensive organization.
+PwGen-rust's password management system provides secure, encrypted storage for all your login credentials using AES-256-GCM encryption with Argon2 key derivation. Each password entry can include multiple fields and metadata for comprehensive organization.
 
 ## Entry Structure
 
@@ -186,7 +186,7 @@ pwgen-cli password update --site github.com --generate
 
 ### Password History
 
-PwGen automatically maintains a history of password changes:
+PwGen-rust automatically maintains a history of password changes:
 
 **Accessing History:**
 - In GUI: View entry details to see password history
@@ -264,7 +264,7 @@ pwgen-cli list --favorites
 
 ### Password Strength Analysis
 
-PwGen automatically analyzes password strength:
+PwGen-rust automatically analyzes password strength:
 
 **Strength Indicators:**
 - **Weak**: Short passwords, common patterns

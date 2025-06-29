@@ -43,7 +43,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/hxhippy/pwgen/tree/main/website/',
+            'https://github.com/HxHippy/PWGen/tree/main/website/',
         },
         blog: {
           showReadingTime: true,
@@ -54,7 +54,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/hxhippy/pwgen/tree/main/website/',
+            'https://github.com/HxHippy/PWGen/tree/main/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -92,7 +92,7 @@ const config = {
             position: 'left'
           },
           {
-            href: 'https://github.com/hxhippy/pwgen',
+            href: 'https://github.com/HxHippy/PWGen',
             label: 'GitHub',
             position: 'right',
           },
@@ -127,15 +127,15 @@ const config = {
             items: [
               {
                 label: 'GitHub Discussions',
-                href: 'https://github.com/hxhippy/pwgen/discussions',
+                href: 'https://github.com/HxHippy/PWGen/discussions',
               },
               {
                 label: 'Issues',
-                href: 'https://github.com/hxhippy/pwgen/issues',
+                href: 'https://github.com/HxHippy/PWGen/issues',
               },
               {
                 label: 'Contributing',
-                href: 'https://github.com/hxhippy/pwgen/blob/main/CONTRIBUTING.md',
+                href: 'https://github.com/HxHippy/PWGen/blob/main/CONTRIBUTING.md',
               },
             ],
           },
@@ -169,11 +169,11 @@ const config = {
               },
               {
                 label: 'Security Policy',
-                href: 'https://github.com/hxhippy/pwgen/blob/main/SECURITY.md',
+                href: 'https://github.com/HxHippy/PWGen/blob/main/SECURITY.md',
               },
               {
                 label: 'License',
-                href: 'https://github.com/hxhippy/pwgen/blob/main/LICENSE',
+                href: 'https://github.com/HxHippy/PWGen/blob/main/LICENSE',
               },
             ],
           },
@@ -201,10 +201,10 @@ const config = {
         searchPagePath: 'search',
       },
       announcementBar: {
-        id: 'v1_2_release',
+        id: 'snap_approved',
         content:
-          '🎉 PwGen v1.2 is out! 30-40% smaller binaries, enhanced security, and flexible builds! <a target="_blank" rel="noopener noreferrer" href="https://github.com/hxhippy/pwgen">Download now</a> ⭐️',
-        backgroundColor: '#25c2a0',
+          '🎉 PwGen-rust is now available in the Snap Store! <a target="_blank" rel="noopener noreferrer" href="https://snapcraft.io/pwgen-rust">Install with: sudo snap install pwgen-rust</a> ✨',
+        backgroundColor: '#E20041',
         textColor: '#FFFFFF',
         isCloseable: true,
       },

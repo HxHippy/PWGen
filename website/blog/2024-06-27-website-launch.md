@@ -32,9 +32,9 @@ The website is built using [Docusaurus](https://docusaurus.io/), a modern static
 
 Like PwGen itself, the website is completely open source. You can:
 
-- [View the source code](https://github.com/hxhippy/pwgen/tree/main/website)
-- [Report documentation issues](https://github.com/hxhippy/pwgen/issues)
-- [Contribute improvements](https://github.com/hxhippy/pwgen/blob/main/CONTRIBUTING.md)
+- [View the source code](https://github.com/HxHippy/PWGen/tree/main/website)
+- [Report documentation issues](https://github.com/HxHippy/PWGen/issues)
+- [Contribute improvements](https://github.com/HxHippy/PWGen/blob/main/CONTRIBUTING.md)
 
 ## Coming Soon
 

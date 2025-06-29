@@ -35,12 +35,12 @@ export default function Download() {
                   <div className="card__body text--center">
                     <p>Ubuntu, Debian, Fedora, Arch</p>
                     <div className="download-buttons">
-                      <a href="https://github.com/hxhippy/pwgen/releases/download/v1.2.0/pwgen-rust_1.2.0_amd64.snap" className="download-button">
-                        📦 Download .snap
+                      <a href="https://snapcraft.io/pwgen-rust" className="download-button">
+                        🎉 Install from Snap Store
                       </a>
-                      <div className="code-block-title">Install via Snap Store</div>
+                      <div className="code-block-title">One-Command Install</div>
                       <pre><code>sudo snap install pwgen-rust</code></pre>
-                      <small>(Pending store approval - use manual install above)</small>
+                      <small>✅ Approved and available in Snap Store!</small>
                     </div>
                   </div>
                 </div>
@@ -54,10 +54,10 @@ export default function Download() {
                   <div className="card__body text--center">
                     <p>macOS 11.0 or later</p>
                     <div className="download-buttons">
-                      <a href="https://github.com/hxhippy/pwgen/releases/download/v1.2.0/pwgen-1.2.0-macos-x64.dmg" className="download-button">
+                      <a href="https://github.com/HxHippy/PWGen/releases/latest" className="download-button">
                         📦 Download .dmg
                       </a>
-                      <a href="https://github.com/hxhippy/pwgen/releases/download/v1.2.0/pwgen-1.2.0-macos-x64.pkg" className="download-button">
+                      <a href="https://github.com/HxHippy/PWGen/releases/latest" className="download-button">
                         📦 Download .pkg
                       </a>
                       <div className="code-block-title">Homebrew</div>
@@ -75,10 +75,10 @@ export default function Download() {
                   <div className="card__body text--center">
                     <p>Windows 10 or later</p>
                     <div className="download-buttons">
-                      <a href="https://github.com/hxhippy/pwgen/releases/download/v1.2.0/pwgen-1.2.0-windows-x64.msi" className="download-button">
+                      <a href="https://github.com/HxHippy/PWGen/releases/latest" className="download-button">
                         📦 Download .msi
                       </a>
-                      <a href="https://github.com/hxhippy/pwgen/releases/download/v1.2.0/pwgen-windows-x64-installer.exe" className="download-button">
+                      <a href="https://github.com/HxHippy/PWGen/releases/latest" className="download-button">
                         📦 Download .exe
                       </a>
                       <div className="code-block-title">Scoop</div>
@@ -97,14 +97,17 @@ export default function Download() {
               <div className="card__body">
                 <h4>📦 Package Managers</h4>
                 <div className="code-block-title">Cargo (Rust)</div>
-                <pre><code>cargo install --git https://github.com/hxhippy/pwgen</code></pre>
+                <pre><code>cargo install --git https://github.com/HxHippy/PWGen</code></pre>
                 
                 <div className="code-block-title">GitHub Releases</div>
-                <pre><code># All platforms - direct download<br/>https://github.com/hxhippy/pwgen/releases/latest</code></pre>
+                <pre><code># All platforms - direct download<br/>https://github.com/HxHippy/PWGen/releases/latest</code></pre>
 
-                <h4>🚀 Manual Installation</h4>
-                <div className="code-block-title">Linux Snap (Manual)</div>
-                <pre><code>wget https://github.com/hxhippy/pwgen/releases/download/v1.2.0/pwgen-rust_1.2.0_amd64.snap<br/>sudo snap install --dangerous pwgen-rust_1.2.0_amd64.snap</code></pre>
+                <h4>🚀 Alternative Installation</h4>
+                <div className="code-block-title">Snap Store (Recommended)</div>
+                <pre><code>sudo snap install pwgen-rust</code></pre>
+                
+                <div className="code-block-title">Manual Snap Install</div>
+                <pre><code>wget https://github.com/HxHippy/PWGen/releases/latest/download/pwgen-rust_1.2.0_amd64.snap<br/>sudo snap install --dangerous pwgen-rust_1.2.0_amd64.snap</code></pre>
               </div>
             </div>
 

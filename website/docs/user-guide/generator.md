@@ -8,7 +8,7 @@ Create strong, secure passwords with customizable generation options.
 
 ## Overview
 
-PwGen's password generator creates cryptographically secure passwords using customizable rules and patterns. The generator supports various character sets, length requirements, and security patterns to meet different password policies.
+PwGen-rust's password generator creates cryptographically secure passwords using Rust's cryptographically secure random number generator (CSPRNG). The generator supports various character sets, length requirements, and security patterns to meet different password policies.
 
 ## Generation Options
 

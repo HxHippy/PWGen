@@ -8,11 +8,11 @@ Command-line interface for power users and automation.
 
 ## Introduction
 
-The PwGen CLI provides full access to password and secrets management through a powerful command-line interface. Perfect for automation, scripting, and power users who prefer terminal-based workflows.
+The PwGen-rust CLI provides full access to password and secrets management through a powerful command-line interface. Built in Rust for maximum performance and security, it's perfect for automation, scripting, and power users who prefer terminal-based workflows.
 
 ## Installation
 
-The CLI is included with all PwGen installations:
+The CLI is included with all PwGen-rust installations:
 
 ```bash
 # Verify installation

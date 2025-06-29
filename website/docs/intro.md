@@ -21,7 +21,7 @@ PwGen-rust is a modern, secure, and user-friendly password and secrets managemen
 
 ### 🎯 Key Features
 
-- **🔒 Military-Grade Security** - AES-256-GCM encryption with secure key derivation
+- **🔒 Military-Grade Security** - AES-256-GCM encryption with Argon2 key derivation
 - **🗝️ Comprehensive Secrets** - API keys, SSH keys, documents, environment variables
 - **🚀 High Performance** - Native Rust performance with minimal resource usage
 - **🎨 Modern UI** - Clean, responsive interface built with egui
@@ -40,7 +40,7 @@ PwGen-rust is a modern, secure, and user-friendly password and secrets managemen
 ### Developer Experience 💻
 
 - **Powerful CLI** - Full command-line interface for automation and scripting
-- **REST API** - Integration capabilities for custom workflows
+- **REST API** - Coming soon! Currently in development (Q1 2026)
 - **Browser Extensions** - Seamless auto-fill across all major browsers
 - **Import/Export** - Easy migration from other password managers
 
@@ -59,10 +59,9 @@ Get up and running with PwGen in minutes:
 
 Choose your platform on our [download page](/download) or use our quick install scripts:
 
-```bash title="Linux (Snap)"
-# Manual install (pending store approval)
-wget https://github.com/hxhippy/pwgen/releases/download/v1.2.0/pwgen-rust_1.2.0_amd64.snap
-sudo snap install --dangerous pwgen-rust_1.2.0_amd64.snap
+```bash title="Linux (Snap Store - Approved!)"
+# One-command install from Snap Store
+sudo snap install pwgen-rust
 ```
 
 ```bash title="macOS"

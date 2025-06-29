@@ -5,9 +5,9 @@
 ![PwGen-rust Logo](ui/PWGenLogo-Wide.png)
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Rust](https://img.shields.io/badge/rust-1.70+-orange.svg)](https://www.rust-lang.org/)
-[![Version](https://img.shields.io/badge/version-1.2-brightgreen.svg)](https://github.com/hxhippy/pwgen/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/hxhippy/pwgen)
+[![Rust](https://img.shields.io/badge/rust-1.75+-orange.svg)](https://www.rust-lang.org/)
+[![Version](https://img.shields.io/badge/version-1.2-brightgreen.svg)](https://github.com/HxHippy/PWGen/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/HxHippy/PWGen)
 [![Security](https://img.shields.io/badge/security-AES--256--GCM-green.svg)](https://en.wikipedia.org/wiki/Galois/Counter_Mode)
 
 **A modern, secure, and user-friendly password and secrets manager built in Rust**
@@ -39,7 +39,7 @@ PwGen-rust is a comprehensive password and secrets management solution designed 
 
 ### 🎯 Why PwGen?
 
-- **🔒 Military-Grade Security**: AES-256-GCM encryption with secure key derivation
+- **🔒 Military-Grade Security**: AES-256-GCM encryption with Argon2 key derivation
 - **🎨 Modern UI**: Clean, responsive interface built with egui
 - **🚀 High Performance**: Native Rust performance with optimized builds (30-40% smaller binaries)
 - **🔧 Developer-Friendly**: CLI and GUI interfaces for all workflows
@@ -87,7 +87,7 @@ PwGen-rust is a comprehensive password and secrets management solution designed 
 
 ### Encryption Standards
 - **Algorithm**: AES-256-GCM (Galois/Counter Mode)
-- **Key Derivation**: PBKDF2 with SHA-256 and configurable iterations
+- **Key Derivation**: Argon2 (memory-hard, side-channel resistant)
 - **Salt Generation**: Cryptographically secure random salt per database
 - **Memory Safety**: Rust's ownership model prevents memory vulnerabilities
 - **Zero-Knowledge**: Master password never leaves your device
@@ -120,25 +120,27 @@ ls -la ~/.config/pwgen/
 
 ### Quick Install (Recommended)
 
-#### Linux
+#### Linux (Snap Store - Approved! 🎉)
 ```bash
-curl -sSL https://raw.githubusercontent.com/hxhippy/pwgen/main/scripts/install.sh | bash
+sudo snap install pwgen-rust
 ```
 
 #### macOS
 ```bash
-curl -sSL https://raw.githubusercontent.com/hxhippy/pwgen/main/scripts/install-macos.sh | bash
+# Download the .dmg installer from GitHub releases
+# https://github.com/HxHippy/PWGen/releases/latest
 ```
 
-#### Windows (PowerShell)
+#### Windows
 ```powershell
-irm https://raw.githubusercontent.com/hxhippy/pwgen/main/scripts/install.ps1 | iex
+# Download the NSIS installer from GitHub releases
+# https://github.com/HxHippy/PWGen/releases/latest
 ```
 
 ### From Source
 
 #### Prerequisites
-- Rust 1.70+ ([Install Rust](https://rustup.rs/))
+- Rust 1.75+ ([Install Rust](https://rustup.rs/))
 - Git
 
 #### Linux Additional Dependencies
@@ -156,8 +158,8 @@ sudo pacman -S base-devel pkg-config openssl gtk3 xdotool
 #### Build Instructions
 ```bash
 # Clone the repository
-git clone https://github.com/hxhippy/pwgen.git
-cd pwgen
+git clone https://github.com/HxHippy/PWGen.git
+cd PWGen
 
 # Build release version (optimized for size)
 cargo build --release
@@ -219,9 +221,14 @@ cargo build --release --features "clipboard,document-compression"
 
 ### Package Managers
 
-#### Cargo
+#### Snap Store (Linux)
 ```bash
-cargo install pwgen-cli pwgen-gui
+sudo snap install pwgen-rust
+```
+
+#### Cargo (All Platforms)
+```bash
+cargo install --git https://github.com/HxHippy/PWGen
 ```
 
 ---
@@ -270,8 +277,8 @@ pwgen-cli --help
 
 ### Browser Integration
 
-1. Install the PwGen browser extension (coming soon)
-2. Enable the local API server: `pwgen-cli server start`
+1. Install the PwGen browser extension (coming Q1 2026)
+2. Enable the local API server: `pwgen-cli server start` (in development)
 3. Connect the extension to your local vault
 4. Enjoy seamless auto-fill capabilities
 
@@ -294,8 +301,8 @@ pwgen/
 ### Technology Stack
 - **Language**: Rust 2021 Edition
 - **GUI Framework**: egui (immediate mode GUI)
-- **Database**: SQLite with sqlx (optimized features)
-- **Crypto**: AES-256-GCM, SHA-256, Argon2 (secure, modern cryptography)
+- **Database**: SQLite with encryption
+- **Crypto**: AES-256-GCM, Argon2 (secure, modern cryptography)
 - **CLI**: clap for argument parsing
 - **Async Runtime**: tokio (optimized features)
 - **Serialization**: serde with JSON/TOML
@@ -320,7 +327,8 @@ backup_interval = "24h"
 max_backups = 10
 
 [security]
-pbkdf2_iterations = 100000
+argon2_memory = 65536
+argon2_iterations = 3
 session_timeout = "15m"
 auto_lock = true
 
@@ -371,8 +379,8 @@ We welcome contributions from the community! PwGen-rust is an open-source projec
 ### Development Setup
 ```bash
 # Clone your fork
-git clone https://github.com/hxhippy/pwgen.git
-cd pwgen
+git clone https://github.com/HxHippy/PWGen.git
+cd PWGen
 
 # Install dependencies
 cargo build
@@ -417,10 +425,10 @@ RUST_LOG=debug cargo run --bin pwgen-gui
 ## 🆘 Support
 
 ### Getting Help
-- 📖 [Documentation](docs/)
-- 🐛 [Issue Tracker](https://github.com/hxhippy/pwgen/issues)
-- 💬 [Discussions](https://github.com/hxhippy/pwgen/discussions)
-- 📧 [Security Issues](mailto:security@example.com)
+- 📖 [Documentation](https://pwgenrust.dev/docs)
+- 🐛 [Issue Tracker](https://github.com/HxHippy/PWGen/issues)
+- 💬 [Discussions](https://github.com/HxHippy/PWGen/discussions)
+- 📧 [Security Issues](mailto:security@pwgenrust.dev)
 
 ### Community
 - 🐦 Follow [@HxHippy](https://x.com/HxHippy) on X/Twitter
@@ -473,18 +481,21 @@ RUST_LOG=debug cargo run --bin pwgen-gui
 - [x] **v1.2**: Flexible build profiles for different deployment scenarios
 - [x] **v1.2**: Reduced Windows SDK requirements
 
-### In Progress 🚧
+### Near-term (Q1 2026) 🚧
 - [ ] Mobile apps (iOS/Android)
 - [ ] Browser extensions
-- [ ] Cloud sync with end-to-end encryption
+- [ ] API server for integrations
 - [ ] TOTP/2FA integration
 
-### Planned 📋
-- [ ] Advanced audit features
-- [ ] Enterprise SSO integration
+### Medium-term (Q3 2026) 📋
+- [ ] Cloud sync with end-to-end encryption
 - [ ] Hardware security key support
 - [ ] Team collaboration features
-- [ ] API server for integrations
+
+### Long-term (2027+) 🔮
+- [ ] Advanced audit features
+- [ ] Enterprise SSO integration
+- [ ] Post-quantum cryptography
 
 ---
 

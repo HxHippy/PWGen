@@ -153,9 +153,10 @@ pwgen-cli list --tags "work,banking"
 
 ### Auto-Lock
 
-PwGen automatically locks after:
+PwGen-rust automatically locks after:
 - 15 minutes of inactivity (default)
 - Manual lock via File → Lock Vault
+- Configurable in Settings
 
 ### Secure Notes
 
@@ -171,9 +172,10 @@ pwgen-cli note list
 
 ### Password History
 
-- PwGen tracks password changes
+- PwGen-rust tracks password changes
 - View previous passwords for recovery
 - Useful for sites with password history requirements
+- All historical passwords remain encrypted
 
 ## Keyboard Shortcuts
 

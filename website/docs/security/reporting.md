@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Security Reporting
 
-How to report security vulnerabilities in PwGen.
+How to report security vulnerabilities in PwGen-rust responsibly and effectively.
 
 ## Reporting Security Issues
 
@@ -12,9 +12,10 @@ If you discover a security vulnerability, please report it responsibly:
 
 ### Contact Information
 
-- **Email**: security@hxhippy.com
-- **Encrypted**: [PGP Key](https://hxhippy.com/pgp)
-- **Response Time**: Within 48 hours
+- **Primary Email**: security@pwgenrust.dev
+- **Alternative**: security@hxhippy.com
+- **Response Time**: Within 24-48 hours
+- **Follow Updates**: [@HxHippy](https://x.com/HxHippy)
 
 ### What to Include
 
@@ -40,10 +41,12 @@ If you discover a security vulnerability, please report it responsibly:
 ## Scope
 
 ### In Scope
-- Core PwGen applications (CLI, GUI)
-- Cryptographic implementations
-- Data handling and storage
+- Core PwGen-rust applications (CLI, GUI)
+- Cryptographic implementations (AES-256-GCM, Argon2)
+- Data handling and storage (SQLite encryption)
 - Authentication mechanisms
+- Memory safety issues
+- Key management
 
 ### Out of Scope
 - Third-party dependencies (report upstream)
@@ -54,10 +57,11 @@ If you discover a security vulnerability, please report it responsibly:
 ## Security Best Practices
 
 ### For Users
-- Keep PwGen updated to latest version
-- Use strong master passwords
-- Enable auto-lock features
-- Regular backups in secure locations
+- Keep PwGen-rust updated to latest version
+- Use strong, unique master passwords (12+ characters)
+- Enable auto-lock features (default: 15 minutes)
+- Regular encrypted backups in secure locations
+- Verify downloads with SHA-256 checksums
 
 ### For Developers
 - Follow secure coding practices
@@ -75,20 +79,25 @@ We currently don't offer monetary rewards, but we provide:
 ## Previous Security Issues
 
 We maintain transparency about past security issues:
-- [Security Advisories](https://github.com/hxhippy/pwgen/security/advisories)
+- [Security Advisories](https://github.com/HxHippy/PWGen/security/advisories)
 - [CVE Database](https://cve.mitre.org/)
+- [Release Notes](https://github.com/HxHippy/PWGen/releases)
 
 ## Security Features
 
-PwGen implements several security measures:
-- AES-256-GCM encryption
-- Secure memory handling
-- Protection against timing attacks
-- Regular security audits
+PwGen-rust implements defense-in-depth security:
+- **AES-256-GCM encryption** with authenticated encryption
+- **Argon2 key derivation** (memory-hard, side-channel resistant)
+- **Rust memory safety** preventing buffer overflows and use-after-free
+- **Zeroization** of sensitive data in memory
+- **Protection against timing attacks**
+- **Local-first architecture** (no network exposure)
+- **Regular dependency audits**
 
 ## Contact
 
 For security-related questions:
-- **Email**: security@hxhippy.com
-- **GitHub**: [Security tab](https://github.com/hxhippy/pwgen/security)
-- **Policy**: [SECURITY.md](https://github.com/hxhippy/pwgen/blob/main/SECURITY.md)
+- **Email**: security@pwgenrust.dev
+- **GitHub**: [Security tab](https://github.com/HxHippy/PWGen/security)
+- **Policy**: [SECURITY.md](https://github.com/HxHippy/PWGen/blob/main/SECURITY.md)
+- **Community**: [GitHub Discussions](https://github.com/HxHippy/PWGen/discussions)

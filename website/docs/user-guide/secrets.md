@@ -8,7 +8,7 @@ Beyond passwords - manage API keys, SSH keys, certificates, and secure documents
 
 ## Overview
 
-PwGen's secrets management system extends beyond simple password storage to handle various types of sensitive information that modern developers and organizations need to secure:
+PwGen-rust's secrets management system extends beyond simple password storage to handle various types of sensitive information that modern developers and organizations need to secure:
 
 - **API Keys**: Service tokens, access keys, webhooks
 - **SSH Keys**: Private keys, public keys, certificates

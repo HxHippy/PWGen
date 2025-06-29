@@ -33,9 +33,9 @@ function getInstallCommand(os) {
     case 'linux':
     default:
       return {
-        package: 'manual',
-        command: '# Snap package pending store approval\n# Download from GitHub releases\nwget https://github.com/hxhippy/pwgen/releases/latest/download/pwgen-rust_1.2.0_amd64.snap\nsudo snap install --dangerous pwgen-rust_1.2.0_amd64.snap',
-        alt: 'Or download other formats from GitHub releases'
+        package: 'snap',
+        command: '# Install from Snap Store (Approved!)\nsudo snap install pwgen-rust',
+        alt: 'Available now in the Snap Store! ✅'
       };
   }
 }

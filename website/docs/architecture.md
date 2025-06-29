@@ -35,7 +35,7 @@ This document provides an overview of PwGen's system architecture, design decisi
 ### pwgen-core
 The foundational library containing all core functionality:
 
-- **Cryptography**: AES-256-GCM encryption, PBKDF2 key derivation
+- **Cryptography**: AES-256-GCM encryption, Argon2 key derivation
 - **Storage**: SQLite database operations with encryption
 - **Models**: Data structures and business logic
 - **Generators**: Password and key generation algorithms
@@ -96,7 +96,7 @@ Browser extension providing:
 
 1. **Master Key Derivation**:
    ```
-   Master Password → PBKDF2-SHA256 → Derived Key → AES-256-GCM Key
+   Master Password → Argon2 → Derived Key → AES-256-GCM Key
    ```
 
 2. **Salt Generation**: Cryptographically secure random salt per vault
@@ -299,7 +299,7 @@ Notes/Tags   Type Valid.   Secure Mem.   Integrity   Log Entry
 ```
 Master Password → Key Derivation → Database Unlock → Load Metadata → UI Unlock
       ↓               ↓                ↓               ↓              ↓
-   User Input     PBKDF2-SHA256    Connection Pool   Verify Schema   Show Entries
+   User Input     Argon2           Connection Pool   Verify Schema   Show Entries
    Validation     100k+ Iterations  Authorization    Load Indexes    Enable Features
    Rate Limit     Salt Lookup      Transaction       Cache Metadata  Clear Errors
 ```
@@ -334,7 +334,7 @@ Search Query → Index Lookup → Database Query → Decryption → UI Display
 ### Security Testing
 
 - **Cryptographic Verification**: Test encryption/decryption cycles
-- **Key Derivation Testing**: Verify PBKDF2 implementation
+- **Key Derivation Testing**: Verify Argon2 implementation
 - **Memory Safety**: Test for leaks and cleanup
 - **Input Validation**: Fuzzing and boundary testing
 - **Authentication**: Master password verification tests

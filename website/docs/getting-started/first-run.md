@@ -4,11 +4,11 @@ sidebar_position: 2
 
 # First Run
 
-Setting up PwGen for the first time.
+Setting up PwGen-rust for the first time. This guide will walk you through creating your first vault and adding your initial passwords.
 
-## Starting PwGen
+## Starting PwGen-rust
 
-After installation, launch PwGen:
+After installation, launch PwGen-rust:
 
 ```bash
 # GUI Application
@@ -20,7 +20,7 @@ pwgen-cli --help
 
 ## Creating Your First Vault
 
-When you first launch PwGen, you'll be prompted to create a new vault:
+When you first launch PwGen-rust, you'll be prompted to create a new vault:
 
 ### 1. Master Password
 
@@ -29,7 +29,7 @@ Choose a strong, memorable master password:
 - Include uppercase, lowercase, numbers, and symbols
 - Consider using a passphrase (e.g., "Coffee!Morning$Routine2024")
 
-⚠️ **Important**: Your master password cannot be recovered if forgotten. Store it securely!
+⚠️ **Important**: Your master password cannot be recovered if forgotten. This is by design - PwGen-rust uses a zero-knowledge architecture where only you know your master password.
 
 ### 2. Confirm Password
 
@@ -37,7 +37,7 @@ Re-enter your master password to confirm.
 
 ### 3. Vault Location
 
-PwGen will create your vault in the default location:
+PwGen-rust will create your vault in the default location:
 - **Linux**: `~/.config/pwgen/vault.db`
 - **macOS**: `~/Library/Application Support/pwgen/vault.db`
 - **Windows**: `%LOCALAPPDATA%\pwgen\vault.db`
