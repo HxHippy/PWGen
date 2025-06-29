@@ -91,7 +91,7 @@ export default function About() {
               <div className="card">
                 <div className="card__header text--center">
                   <img 
-                    src="/img/Kief-Studio-WordsOnly-Logo-DarkGrey_Layer 1_300dpi.png" 
+                    src="/img/kief-studio-logo.png" 
                     alt="Kief Studio"
                     style={{height: '60px', objectFit: 'contain'}}
                   />
@@ -119,7 +119,7 @@ export default function About() {
               <div className="card">
                 <div className="card__header text--center">
                   <img 
-                    src="/img/TRaViS-Icon.png" 
+                    src="/img/travis-icon.png" 
                     alt="TRaViS"
                     style={{height: '60px', objectFit: 'contain'}}
                   />
