@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![PwGen-rust Logo](ui/PWGenLogo-Wide.png)
+![PwGen-rust Logo](docs/images/PWGenLogo-Wide.png)
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Rust](https://img.shields.io/badge/rust-1.75+-orange.svg)](https://www.rust-lang.org/)
@@ -21,13 +21,13 @@
 <div align="center">
 
 ### Desktop Application Interface
-![PwGen Password Manager](website/static/img/screenshot-main.png)
+![PwGen Password Manager](docs/images/screenshot-main.png)
 
 ### Password Generator
-![PwGen Password Generator](website/static/img/screenshot-generator.png)
+![PwGen Password Generator](docs/images/screenshot-generator.png)
 
 ### Application Banner
-![PwGen Application Banner](ui/PWGen-Banner.png)
+![PwGen Application Banner](docs/images/PWGen-Banner.png)
 
 </div>
 
