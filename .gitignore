@@ -30,6 +30,7 @@ URL_AND_DATE_CORRECTIONS_*.md
 *_SUMMARY_*.md
 *_PLAN_*.md
 *_RESULTS_*.md
+website/
 
 # OS generated files
 .DS_Store
