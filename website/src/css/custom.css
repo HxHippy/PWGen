@@ -281,6 +281,16 @@
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
+/* Ensure logo visibility on the always-dark hero background */
+.hero-logo picture {
+  display: block;
+}
+
+/* Add slight glow effect for better visibility */
+.hero-logo-image {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 20px rgba(226, 0, 65, 0.1));
+}
+
 /* Install command section */
 .install-section {
   background: rgba(255, 255, 255, 0.1);

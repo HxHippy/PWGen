@@ -13,10 +13,10 @@ kief:
   name: Kief Studio Team
   title: AI Integration & Technology Consulting
   url: https://kief.studio
-  image_url: /img/kief-studio-logo.png
+  image_url: /img/kief-studio-logo-dark.png
   
 travis:
   name: TRaViS Team
   title: AI-Powered EASM & Threat Intelligence
   url: https://travisasm.com
-  image_url: /img/travis-icon.png
+  image_url: /img/travis-text-dark.png

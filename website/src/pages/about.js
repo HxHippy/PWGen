@@ -90,11 +90,14 @@ export default function About() {
             <div className="col col--6">
               <div className="card">
                 <div className="card__header text--center">
-                  <img 
-                    src="/img/kief-studio-logo.png" 
-                    alt="Kief Studio"
-                    style={{height: '60px', objectFit: 'contain'}}
-                  />
+                  <picture>
+                    <source media="(prefers-color-scheme: dark)" srcSet="/img/kief-studio-logo-light.png" />
+                    <img 
+                      src="/img/kief-studio-logo-dark.png" 
+                      alt="Kief Studio"
+                      style={{height: '60px', objectFit: 'contain'}}
+                    />
+                  </picture>
                 </div>
                 <div className="card__body">
                   <h3>Kief Studio</h3>
@@ -118,11 +121,14 @@ export default function About() {
             <div className="col col--6">
               <div className="card">
                 <div className="card__header text--center">
-                  <img 
-                    src="/img/travis-icon.png" 
-                    alt="TRaViS"
-                    style={{height: '60px', objectFit: 'contain'}}
-                  />
+                  <picture>
+                    <source media="(prefers-color-scheme: dark)" srcSet="/img/travis-text-white.png" />
+                    <img 
+                      src="/img/travis-text-dark.png" 
+                      alt="TRaViS"
+                      style={{height: '60px', objectFit: 'contain'}}
+                    />
+                  </picture>
                 </div>
                 <div className="card__body">
                   <h3>TRaViS</h3>
