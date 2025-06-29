@@ -1,17 +1,22 @@
 hxhippy:
-  name: HxHippy
-  title: Lead Developer & Security Researcher
+  name: Brian Gagne (HxHippy)
+  title: Visionary CTO & CIO | AI & Cybersecurity Strategist | Author, "The Crossroads of AI Integration"
   url: https://hxhippy.com
-  image_url: https://avatars.githubusercontent.com/u/62410999
+  image_url: /img/hxhippy.jpeg
+  socials:
+    linkedin: briansgagne
+    twitter: HxHippy
+    github: HxHippy
+  bio: CTO/COO at Kief Studio, CIO at TRaViS. Shaping Secure AI Adoption & Resilient Cyber Defenses.
   
 kief:
   name: Kief Studio Team
   title: AI Integration & Technology Consulting
   url: https://kief.studio
-  image_url: https://kief.studio/logo.png
+  image_url: /img/Kief-Studio-WordsOnly-Logo-DarkGrey_Layer 1_300dpi.png
   
 travis:
   name: TRaViS Team
   title: AI-Powered EASM & Threat Intelligence
   url: https://travisasm.com
-  image_url: https://travisasm.com/logo.png
+  image_url: /img/TRaViS-Icon.png

@@ -92,6 +92,11 @@ const config = {
             position: 'left'
           },
           {
+            to: '/about',
+            label: 'About',
+            position: 'left'
+          },
+          {
             href: 'https://github.com/HxHippy/PWGen',
             label: 'GitHub',
             position: 'right',
