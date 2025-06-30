@@ -120,9 +120,11 @@ ls -la ~/.config/pwgen/
 
 ### Quick Install (Recommended)
 
-#### Linux (Snap Store - Approved! 🎉)
+#### Linux (Snap Store - Pending Approval)
 ```bash
-sudo snap install pwgen-rust
+# Coming soon! The snap package is currently pending approval
+# Once approved, you'll be able to install with:
+# sudo snap install pwgen-rust
 ```
 
 #### macOS
@@ -221,9 +223,11 @@ cargo build --release --features "clipboard,document-compression"
 
 ### Package Managers
 
-#### Snap Store (Linux)
+#### Snap Store (Linux) - Coming Soon!
 ```bash
-sudo snap install pwgen-rust
+# The snap package is currently pending approval
+# Once approved, you'll be able to install with:
+# sudo snap install pwgen-rust
 ```
 
 #### Cargo (All Platforms)
