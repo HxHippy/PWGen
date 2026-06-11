@@ -978,12 +978,6 @@ impl PwGenApp {
                         }
                         ui.close_menu();
                     }
-                    if ui.button("🔍 TRaViS ASM").clicked() {
-                        if let Err(e) = open::that("https://travisasm.com") {
-                            eprintln!("Failed to open TRaViS: {}", e);
-                        }
-                        ui.close_menu();
-                    }
                     ui.separator();
                     if ui.button("ℹ About PwGen").clicked() {
                         self.show_about = true;
@@ -2097,9 +2091,6 @@ impl PwGenApp {
                                         if ui.small_button("Kief Studio").clicked() {
                                             let _ = open::that("https://kief.studio");
                                         }
-                                        if ui.small_button("TRaViS ASM").clicked() {
-                                            let _ = open::that("https://travisasm.com");
-                                        }
                                     });
                                     ui.small("Developer websites");
                                 });
@@ -2439,14 +2430,7 @@ impl PwGenApp {
                             let _ = open::that("https://kief.studio");
                         }
                     });
-                    
-                    ui.horizontal(|ui| {
-                        ui.label("🔍 Attack Surface Management:");
-                        if ui.link("TRaViS").clicked() {
-                            let _ = open::that("https://travisasm.com");
-                        }
-                    });
-                    
+
                     ui.add_space(15.0);
                     ui.separator();
                     ui.add_space(10.0);

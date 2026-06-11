@@ -4,7 +4,7 @@
            Name="PwGen" 
            Language="1033" 
            Version="1.2.0.0" 
-           Manufacturer="HxHippy, Kief Studio, TRaViS" 
+           Manufacturer="HxHippy, Kief Studio, Meelie" 
            UpgradeCode="12345678-1234-1234-1234-123456789012">
     
     <Package InstallerVersion="200" 
@@ -12,7 +12,7 @@
              InstallScope="perMachine"
              Description="PwGen - Advanced Password &amp; Secrets Manager built in Rust"
              Comments="30-40% smaller binaries, enhanced security, flexible builds"
-             Manufacturer="HxHippy, Kief Studio, TRaViS" />
+             Manufacturer="HxHippy, Kief Studio, Meelie" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" />

@@ -19,7 +19,7 @@ default-members = [
 [workspace.package]
 version = "1.2.0"
 edition = "2021"
-authors = ["HxHippy", "Kief Studio", "TRaViS Team"]
+authors = ["HxHippy", "Kief Studio", "Meelie"]
 license = "Apache-2.0"
 repository = "https://github.com/hxhippy/pwgen"
 homepage = "https://github.com/hxhippy/pwgen"
