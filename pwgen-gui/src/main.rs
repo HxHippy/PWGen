@@ -1065,7 +1065,7 @@ impl PwGenApp {
                             
                             ui.separator();
                             ui.label("Per page:");
-                            egui::ComboBox::from_id_source("entries_per_page")
+                            egui::ComboBox::from_id_salt("entries_per_page")
                                 .selected_text(format!("{}", self.entries_per_page))
                                 .width(80.0)
                                 .show_ui(ui, |ui| {
@@ -1136,7 +1136,7 @@ impl PwGenApp {
                         
                         ui.separator();
                         ui.label("Per page:");
-                        egui::ComboBox::from_id_source("entries_per_page")
+                        egui::ComboBox::from_id_salt("entries_per_page")
                             .selected_text(format!("{}", self.entries_per_page))
                             .width(80.0)
                             .show_ui(ui, |ui| {
@@ -1181,7 +1181,7 @@ impl PwGenApp {
                         // Compact mode: stack filter controls vertically
                         ui.horizontal(|ui| {
                             ui.label("Search in:");
-                            egui::ComboBox::from_id_source("search_field")
+                            egui::ComboBox::from_id_salt("search_field")
                                 .selected_text(match self.search_field {
                                     SearchField::All => "All Fields",
                                     SearchField::Site => "Website",
@@ -1235,7 +1235,7 @@ impl PwGenApp {
                         ui.horizontal(|ui| {
                             // Search field selector
                             ui.label("Search in:");
-                            egui::ComboBox::from_id_source("search_field")
+                            egui::ComboBox::from_id_salt("search_field")
                                 .selected_text(match self.search_field {
                                     SearchField::All => "All Fields",
                                     SearchField::Site => "Website",
@@ -2112,7 +2112,7 @@ impl PwGenApp {
                 
                 egui::Grid::new("security_settings").num_columns(2).show(ui, |ui| {
                     ui.label("Auto-lock after (minutes):");
-                    ui.add(egui::DragValue::new(&mut self.auto_lock_minutes).clamp_range(1..=60));
+                    ui.add(egui::DragValue::new(&mut self.auto_lock_minutes).range(1..=60));
                     ui.end_row();
                     
                     ui.label("Minimize to tray:");
@@ -2133,7 +2133,7 @@ impl PwGenApp {
                 
                 egui::Grid::new("appearance_settings").num_columns(2).show(ui, |ui| {
                     ui.label("Entries per page:");
-                    ui.add(egui::DragValue::new(&mut self.entries_per_page).clamp_range(10..=500));
+                    ui.add(egui::DragValue::new(&mut self.entries_per_page).range(10..=500));
                     ui.end_row();
                     
                     ui.label("Theme:");
@@ -3071,7 +3071,7 @@ impl PwGenApp {
             ui.end_row();
             
             ui.label("Environment:");
-            egui::ComboBox::from_id_source("api_environment")
+            egui::ComboBox::from_id_salt("api_environment")
                 .selected_text(&self.api_environment)
                 .show_ui(ui, |ui| {
                     ui.selectable_value(&mut self.api_environment, "development".to_string(), "Development");
@@ -3090,7 +3090,7 @@ impl PwGenApp {
         ui.heading("🔐 SSH Key Details");
         egui::Grid::new("ssh_key_fields").num_columns(2).show(ui, |ui| {
             ui.label("Key Type:");
-            egui::ComboBox::from_id_source("ssh_key_type")
+            egui::ComboBox::from_id_salt("ssh_key_type")
                 .selected_text(&self.ssh_key_type)
                 .show_ui(ui, |ui| {
                     ui.selectable_value(&mut self.ssh_key_type, "RSA".to_string(), "RSA");
@@ -3196,7 +3196,7 @@ impl PwGenApp {
         ui.heading("🔗 Database Connection");
         egui::Grid::new("database_fields").num_columns(2).show(ui, |ui| {
             ui.label("Database Type:");
-            egui::ComboBox::from_id_source("db_type")
+            egui::ComboBox::from_id_salt("db_type")
                 .selected_text(&self.db_type)
                 .show_ui(ui, |ui| {
                     ui.selectable_value(&mut self.db_type, "PostgreSQL".to_string(), "PostgreSQL");
@@ -3548,6 +3548,7 @@ fn load_logo_wide(ctx: &egui::Context) -> Option<egui::TextureHandle> {
                     magnification: egui::TextureFilter::Linear,
                     minification: egui::TextureFilter::Linear,
                     wrap_mode: egui::TextureWrapMode::ClampToEdge,
+                    mipmap_mode: None,
                 }
             ))
         }
@@ -3597,6 +3598,7 @@ fn load_logo_square(ctx: &egui::Context) -> Option<egui::TextureHandle> {
                     magnification: egui::TextureFilter::Linear,
                     minification: egui::TextureFilter::Linear,
                     wrap_mode: egui::TextureWrapMode::ClampToEdge,
+                    mipmap_mode: None,
                 }
             ))
         }
@@ -3636,6 +3638,6 @@ fn main() -> eframe::Result<()> {
     eframe::run_native(
         "PwGen Password Manager",
         native_options,
-        Box::new(|cc| Box::new(PwGenApp::new(cc))),
+        Box::new(|cc| Ok(Box::new(PwGenApp::new(cc)))),
     )
 }

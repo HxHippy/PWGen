@@ -18,6 +18,7 @@ claude/
 *.cursor*
 .windsurf/
 *.windsurf*
+.mycelium/
 
 # Development documentation (internal notes)
 BACKUP_FEATURES.md
