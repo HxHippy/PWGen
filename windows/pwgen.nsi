@@ -3,7 +3,7 @@
 
 !define PRODUCT_NAME "PwGen"
 !define PRODUCT_VERSION "1.2.0"
-!define PRODUCT_PUBLISHER "HxHippy, Kief Studio, TRaViS"
+!define PRODUCT_PUBLISHER "HxHippy, Kief Studio, Meelie"
 !define PRODUCT_WEB_SITE "https://pwgenrust.dev"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\pwgen-gui.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"

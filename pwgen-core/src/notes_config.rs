@@ -144,20 +144,9 @@ impl NotesConfigManager {
         description: Option<String>,
         tags: Vec<String>,
     ) -> Result<DecryptedSecretEntry> {
-        let note_metadata = NoteMetadata {
-            category,
-            priority,
-            linked_secrets: Vec::new(),
-            attachments: Vec::new(),
-            collaborators: Vec::new(),
-            version: 1,
-            change_log: vec![NoteChange {
-                timestamp: Utc::now(),
-                user: None,
-                change_type: ChangeType::Created,
-                description: "Note created".to_string(),
-            }],
-        };
+        // Note: category/priority metadata is not yet persisted in the vault
+        // schema, so it is accepted for API completeness but not stored here.
+        let _ = (&category, &priority);
 
         let secret_data = SecretData::SecureNote {
             title: title.clone(),
@@ -222,7 +211,7 @@ impl NotesConfigManager {
         new_content: Option<String>,
         new_title: Option<String>,
         new_format: Option<NoteFormat>,
-        user: Option<String>,
+        _user: Option<String>,
     ) -> Result<()> {
         if let SecretData::SecureNote { title, content, format } = &mut entry.data {
             let mut changes = Vec::new();

@@ -132,6 +132,8 @@ struct PwGenApp {
     
     // Images
     logo_wide: Option<egui::TextureHandle>,
+    // Loaded for use as an in-app icon; not currently rendered.
+    #[allow(dead_code)]
     logo_square: Option<egui::TextureHandle>,
     
     // Settings
@@ -188,7 +190,7 @@ impl PwGenApp {
         );
         
         // Create system tray
-        let tray_icon = create_tray_icon();
+        let _tray_icon = create_tray_icon();
         
         let mut app = Self {
             runtime,
@@ -888,7 +890,7 @@ impl PwGenApp {
         });
     }
     
-    fn show_main_screen(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+    fn show_main_screen(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         // Menu bar
         egui::TopBottomPanel::top("menu_bar").show(ctx, |ui| {
             egui::menu::bar(ui, |ui| {
@@ -973,12 +975,6 @@ impl PwGenApp {
                     if ui.button("🌐 Kief Studio").clicked() {
                         if let Err(e) = open::that("https://kief.studio") {
                             eprintln!("Failed to open Kief Studio: {}", e);
-                        }
-                        ui.close_menu();
-                    }
-                    if ui.button("🔍 TRaViS ASM").clicked() {
-                        if let Err(e) = open::that("https://travisasm.com") {
-                            eprintln!("Failed to open TRaViS: {}", e);
                         }
                         ui.close_menu();
                     }
@@ -1409,12 +1405,13 @@ impl PwGenApp {
                         ui.visuals().text_color()
                     };
                     
+                    let label = egui::RichText::new(format!("{} {}", icon, text)).color(text_color);
                     let button_style = if is_selected {
-                        egui::Button::new(format!("{} {}", icon, text))
+                        egui::Button::new(label)
                             .fill(ui.visuals().selection.bg_fill)
                             .stroke(egui::Stroke::new(1.0, ui.visuals().selection.stroke.color))
                     } else {
-                        egui::Button::new(format!("{} {}", icon, text))
+                        egui::Button::new(label)
                             .fill(egui::Color32::TRANSPARENT)
                     };
                     
@@ -2094,9 +2091,6 @@ impl PwGenApp {
                                         if ui.small_button("Kief Studio").clicked() {
                                             let _ = open::that("https://kief.studio");
                                         }
-                                        if ui.small_button("TRaViS ASM").clicked() {
-                                            let _ = open::that("https://travisasm.com");
-                                        }
                                     });
                                     ui.small("Developer websites");
                                 });
@@ -2436,14 +2430,7 @@ impl PwGenApp {
                             let _ = open::that("https://kief.studio");
                         }
                     });
-                    
-                    ui.horizontal(|ui| {
-                        ui.label("🔍 Attack Surface Management:");
-                        if ui.link("TRaViS").clicked() {
-                            let _ = open::that("https://travisasm.com");
-                        }
-                    });
-                    
+
                     ui.add_space(15.0);
                     ui.separator();
                     ui.add_space(10.0);
@@ -3451,6 +3438,7 @@ impl PwGenApp {
         self.cancel_secret_creation();
     }
     
+    #[allow(dead_code)]
     fn refresh_secrets_list(&mut self) {
         self.filtered_secrets = self.secrets.clone();
     }
@@ -3522,7 +3510,7 @@ fn setup_custom_fonts(ctx: &egui::Context) {
 }
 
 fn load_logo_wide(ctx: &egui::Context) -> Option<egui::TextureHandle> {
-    let logo_bytes = include_bytes!("../../ui/PWGenLogo-Wide.png");
+    let logo_bytes = include_bytes!("../icons/PWGenLogo-Wide.png");
     
     // Parse PNG image
     let decoder = png::Decoder::new(&logo_bytes[..]);
@@ -3571,7 +3559,7 @@ fn load_logo_wide(ctx: &egui::Context) -> Option<egui::TextureHandle> {
 }
 
 fn load_logo_square(ctx: &egui::Context) -> Option<egui::TextureHandle> {
-    let logo_bytes = include_bytes!("../../ui/PWGenLogo.png");
+    let logo_bytes = include_bytes!("../icons/PWGenLogo.png");
     
     // Parse PNG image
     let decoder = png::Decoder::new(&logo_bytes[..]);
@@ -3625,6 +3613,8 @@ fn create_tray_icon() -> Option<()> {
     None
 }
 
+// Reserved for when the system tray feature is enabled (see create_tray_icon).
+#[allow(dead_code)]
 fn handle_tray_event(_app: &mut PwGenApp, _ctx: &egui::Context) {
     // TODO: Implement tray event handling when system tray is enabled
 }

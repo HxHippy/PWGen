@@ -3079,12 +3079,10 @@ async fn search_notes(
     let search_results = NotesConfigManager::search_notes_content(&entries, query, case_sensitive);
 
     let filtered_results: Vec<_> = if let Some(cat) = category {
-        let target_category: NoteCategory = cat.parse()?;
-        search_results.into_iter().filter(|entry| {
-            // In a full implementation, we'd check note metadata
-            // For now, we'll just return all results
-            true
-        }).collect()
+        // Validate the category name even though note metadata is not yet
+        // persisted, so filtering currently returns all matching notes.
+        let _target_category: NoteCategory = cat.parse()?;
+        search_results
     } else {
         search_results
     };
@@ -3124,9 +3122,9 @@ async fn search_notes(
 
 async fn list_notes(
     storage: &SecretsStorage,
-    category: Option<String>,
-    priority: Option<String>,
-    format: Option<String>,
+    _category: Option<String>,
+    _priority: Option<String>,
+    _format: Option<String>,
 ) -> Result<()> {
     let mut filter = SecretFilter::default();
     filter.secret_types = Some(vec![SecretType::SecureNote]);
@@ -3174,7 +3172,7 @@ async fn create_config(
     format: String,
     file: Option<PathBuf>,
     from_stdin: bool,
-    template: Option<String>,
+    _template: Option<String>,
     description: Option<String>,
     tags: Vec<String>,
 ) -> Result<()> {
@@ -3354,7 +3352,7 @@ fn list_config_templates() {
 async fn list_configs(
     storage: &SecretsStorage,
     config_type: Option<String>,
-    format: Option<String>,
+    _format: Option<String>,
 ) -> Result<()> {
     let mut filter = SecretFilter::default();
     filter.secret_types = Some(vec![SecretType::Configuration]);
@@ -4073,28 +4071,14 @@ async fn get_entry(
         if show {
             println!("Password: {}", entry.password);
         } else if copy {
-            #[cfg(target_os = "linux")]
-            {
-                use std::process::Command;
-                let mut child = Command::new("xclip")
-                    .arg("-selection")
-                    .arg("clipboard")
-                    .stdin(std::process::Stdio::piped())
-                    .spawn()?;
-                
-                if let Some(mut stdin) = child.stdin.take() {
-                    use std::io::Write;
-                    stdin.write_all(entry.password.as_bytes())?;
+            // Cross-platform clipboard (Linux/macOS/Windows/BSD) via arboard,
+            // consistent with how API keys and tokens are copied elsewhere.
+            match arboard::Clipboard::new().and_then(|mut ctx| ctx.set_text(entry.password.clone())) {
+                Ok(()) => println!("Password copied to clipboard"),
+                Err(e) => {
+                    eprintln!("Failed to copy to clipboard: {}", e);
+                    println!("Password: {}", entry.password);
                 }
-                
-                child.wait()?;
-                println!("Password copied to clipboard");
-            }
-            
-            #[cfg(not(target_os = "linux"))]
-            {
-                println!("Clipboard support not implemented for this platform");
-                println!("Password: {}", entry.password);
             }
         } else {
             println!("Username: {}", entry.username);
@@ -4431,7 +4415,7 @@ async fn add_team_member(
     member_name: String,
     role_str: String,
 ) -> Result<()> {
-    let role = match role_str.as_str() {
+    let _role = match role_str.as_str() {
         "read" => Permission::Read,
         "write" => Permission::Write,
         "share" => Permission::Share,

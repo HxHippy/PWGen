@@ -7,7 +7,7 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Rust](https://img.shields.io/badge/rust-1.75+-orange.svg)](https://www.rust-lang.org/)
 [![Version](https://img.shields.io/badge/version-1.2-brightgreen.svg)](https://github.com/HxHippy/PWGen/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/HxHippy/PWGen)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux%20%7C%20BSD-lightgrey.svg)](https://github.com/HxHippy/PWGen)
 [![Security](https://img.shields.io/badge/security-AES--256--GCM-green.svg)](https://en.wikipedia.org/wiki/Galois/Counter_Mode)
 
 **A modern, secure, and user-friendly password and secrets manager built in Rust**
@@ -43,7 +43,7 @@ PwGen-rust is a comprehensive password and secrets management solution designed 
 - **🎨 Modern UI**: Clean, responsive interface built with egui
 - **🚀 High Performance**: Native Rust performance with optimized builds (30-40% smaller binaries)
 - **🔧 Developer-Friendly**: CLI and GUI interfaces for all workflows
-- **🌐 Cross-Platform**: Windows, macOS, and Linux support with flexible build options
+- **🌐 Cross-Platform**: Windows, macOS, Linux, and BSD support with flexible build options
 - **📦 Self-Contained**: No cloud dependencies, your data stays local
 - **🔄 Import/Export**: Seamless migration from other password managers
 - **⚡ Optimized Builds**: Multiple build profiles for different deployment scenarios
@@ -157,6 +157,15 @@ sudo dnf install gcc gcc-c++ pkg-config openssl-devel gtk3-devel xdotool-devel
 sudo pacman -S base-devel pkg-config openssl gtk3 xdotool
 ```
 
+#### BSD Additional Dependencies
+```sh
+# FreeBSD
+sudo pkg install rust pkgconf gtk3 xdotool
+
+# The CLI (pwgen-cli) is fully supported on the BSD family. The GUI builds on
+# BSD via X11/Wayland and is community-tested rather than covered by CI.
+```
+
 #### Build Instructions
 ```bash
 # Clone the repository
@@ -181,6 +190,19 @@ pwgen-gui
 
 # Or use the CLI
 pwgen-cli --help
+```
+
+#### Local vs Server builds
+PwGen supports both local and server deployments. A bare `cargo build` compiles
+only the local stack (core + CLI + GUI) and skips the server's HTTP dependency
+tree, keeping local builds lean:
+```bash
+# Local deployment (default) — core + CLI + GUI only
+cargo build --release
+
+# Include the server component
+cargo build --release -p pwgen-server   # server only
+cargo build --release --workspace       # everything
 ```
 
 ### 🎛️ Build Options (v1.2)
@@ -438,14 +460,12 @@ RUST_LOG=debug cargo run --bin pwgen-gui
 - 🐦 Follow [@HxHippy](https://x.com/HxHippy) on X/Twitter
 - 🌐 Visit [HxHippy.com](https://hxhippy.com)
 - 💼 [Kief Studio](https://kief.studio) - AI Integration & Technology Consulting
-- 🔍 [TRaViS](https://travisasm.com) - AI-Powered EASM without asset caps
 
 ---
 
 ## 🙏 Acknowledgments
 
 ### Powered By
-- **[TRaViS](https://travisasm.com)** - Threat Reconnaissance And Vulnerability Identification System
 - **[Kief Studio](https://kief.studio)** - AI Integration and Technology Consulting Company
 - **[HxHippy](https://hxhippy.com)** - [@HxHippy](https://x.com/HxHippy) on X/Twitter
 
@@ -453,7 +473,7 @@ RUST_LOG=debug cargo run --bin pwgen-gui
 - [Rust](https://www.rust-lang.org/) - Systems programming language
 - [egui](https://github.com/emilk/egui) - Immediate mode GUI framework
 - [SQLite](https://www.sqlite.org/) - Self-contained SQL database engine
-- [ring](https://github.com/briansmith/ring) - Cryptographic primitives
+- [aes-gcm](https://github.com/RustCrypto/AEADs) & [argon2](https://github.com/RustCrypto/password-hashes) - Encryption and key derivation
 - [tokio](https://tokio.rs/) - Asynchronous runtime
 
 ### Special Thanks
@@ -508,7 +528,7 @@ RUST_LOG=debug cargo run --bin pwgen-gui
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
 ```
-Copyright 2025 HxHippy, Kief Studio, TRaViS
+Copyright 2026 HxHippy, Kief Studio, Meelie
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
