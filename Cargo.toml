@@ -6,6 +6,15 @@ members = [
     "pwgen-gui",
     "pwgen-server"
 ]
+# Local deployment is the default build: a bare `cargo build`/`cargo test`
+# compiles only the core + CLI + GUI and skips the server's axum/tower/hyper
+# stack. Build the server explicitly with `cargo build -p pwgen-server` or the
+# whole workspace with `cargo build --workspace`.
+default-members = [
+    "pwgen-core",
+    "pwgen-cli",
+    "pwgen-gui"
+]
 
 [workspace.package]
 version = "1.2.0"
