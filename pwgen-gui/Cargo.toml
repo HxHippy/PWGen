@@ -13,8 +13,8 @@ categories.workspace = true
 
 [dependencies]
 pwgen-core = { path = "../pwgen-core" }
-egui = "0.27"
-eframe = { version = "0.27", features = ["persistence"] }
+egui = "0.29"
+eframe = { version = "0.29", features = ["persistence"] }
 png = "0.17"
 serde = { workspace = true }
 serde_json = { workspace = true }

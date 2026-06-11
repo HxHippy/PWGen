@@ -1,7 +1,6 @@
 # Rust build artifacts
 /target/
 **/target/
-Cargo.lock
 
 # IDE files
 .vscode/
@@ -18,6 +17,7 @@ claude/
 *.cursor*
 .windsurf/
 *.windsurf*
+.mycelium/
 
 # Development documentation (internal notes)
 BACKUP_FEATURES.md
