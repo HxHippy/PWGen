@@ -75,7 +75,7 @@ impl DocumentManager {
     pub fn import_file<P: AsRef<Path>>(
         file_path: P,
         document_type: DocumentType,
-        description: Option<String>,
+        _description: Option<String>,
         compress: bool,
     ) -> Result<(SecretData, DocumentInfo)> {
         let path = file_path.as_ref();
@@ -163,22 +163,25 @@ impl DocumentManager {
         verify_checksum: bool,
     ) -> Result<()> {
         if let SecretData::Document { filename: _, content_type: _, content, checksum } = secret_data {
-            // Verify checksum if requested
+            // Decompress if the stored bytes are gzip-compressed (see import_file)
+            let data = Self::maybe_decompress(content)?;
+
+            // Verify checksum if requested (checksum is over the original content)
             if verify_checksum {
-                let calculated_checksum = Self::calculate_checksum(content);
+                let calculated_checksum = Self::calculate_checksum(&data);
                 if calculated_checksum != *checksum {
                     return Err(Error::Other("Document checksum verification failed".to_string()));
                 }
             }
-            
+
             // Create parent directory if it doesn't exist
             if let Some(parent) = output_path.parent() {
                 fs::create_dir_all(parent)
                     .map_err(|e| Error::Other(format!("Failed to create directory: {}", e)))?;
             }
-            
+
             // Write content to file
-            fs::write(output_path, content)
+            fs::write(output_path, &data)
                 .map_err(|e| Error::Other(format!("Failed to write file: {}", e)))?;
             
             println!("Document exported to: {}", output_path.display());
@@ -191,13 +194,15 @@ impl DocumentManager {
     /// Get document information from secret data
     pub fn get_document_info(secret_data: &SecretData) -> Result<DocumentInfo> {
         if let SecretData::Document { filename, content_type, content, checksum } = secret_data {
-            let file_size = content.len() as u64;
-            let encoding = if Self::is_text_content(content) {
+            let compressed = Self::is_gzip(content);
+            let data = Self::maybe_decompress(content)?;
+            let file_size = data.len() as u64;
+            let encoding = if Self::is_text_content(&data) {
                 DocumentEncoding::Text
             } else {
                 DocumentEncoding::Binary
             };
-            
+
             Ok(DocumentInfo {
                 filename: filename.clone(),
                 content_type: content_type.clone(),
@@ -205,7 +210,7 @@ impl DocumentManager {
                 checksum_sha256: checksum.clone(),
                 document_type: Self::detect_document_type(filename, content_type),
                 encoding,
-                compression: None, // This would need to be stored separately
+                compression: if compressed { Some(CompressionType::Gzip) } else { None },
                 created_at: chrono::Utc::now(),
                 last_modified: None,
             })
@@ -217,7 +222,8 @@ impl DocumentManager {
     /// Verify document integrity
     pub fn verify_document(secret_data: &SecretData) -> Result<bool> {
         if let SecretData::Document { content, checksum, .. } = secret_data {
-            let calculated_checksum = Self::calculate_checksum(content);
+            let data = Self::maybe_decompress(content)?;
+            let calculated_checksum = Self::calculate_checksum(&data);
             Ok(calculated_checksum == *checksum)
         } else {
             Err(Error::Other("Secret is not a document".to_string()))
@@ -228,7 +234,7 @@ impl DocumentManager {
     pub fn create_text_document(
         filename: String,
         text_content: String,
-        document_type: DocumentType,
+        _document_type: DocumentType,
     ) -> Result<SecretData> {
         let content = text_content.into_bytes();
         let checksum = Self::calculate_checksum(&content);
@@ -439,6 +445,22 @@ impl DocumentManager {
     fn decompress_content(compressed: &[u8]) -> Result<Vec<u8>> {
         Ok(compressed.to_vec())
     }
+
+    /// Returns true if the bytes begin with the gzip magic header (0x1f 0x8b).
+    fn is_gzip(data: &[u8]) -> bool {
+        data.len() >= 2 && data[0] == 0x1f && data[1] == 0x8b
+    }
+
+    /// Decompress content if it is gzip-compressed, otherwise return it unchanged.
+    /// This lets document content be self-describing so callers don't need to
+    /// track the compression flag separately.
+    fn maybe_decompress(content: &[u8]) -> Result<Vec<u8>> {
+        if Self::is_gzip(content) {
+            Self::decompress_content(content)
+        } else {
+            Ok(content.to_vec())
+        }
+    }
 }
 
 /// Document attachment utilities
@@ -558,5 +580,34 @@ mod tests {
         assert_eq!(DocumentManager::detect_document_type("cert.pem", "application/x-pem-file"), DocumentType::Certificate);
         assert_eq!(DocumentManager::detect_document_type("config.json", "application/json"), DocumentType::Configuration);
         assert_eq!(DocumentManager::detect_document_type("image.png", "image/png"), DocumentType::Image);
+    }
+
+    #[test]
+    fn test_compressed_document_roundtrip() {
+        // Highly compressible content larger than the 1 KiB compression threshold.
+        let original = "PWGen compression round-trip test. ".repeat(200).into_bytes();
+
+        let dir = tempfile::tempdir().unwrap();
+        let src = dir.path().join("note.txt");
+        std::fs::File::create(&src).unwrap().write_all(&original).unwrap();
+
+        let (secret_data, info) =
+            DocumentManager::import_file(&src, DocumentType::Document, None, true).unwrap();
+
+        // With the document-compression feature, this input must be stored gzip-compressed.
+        #[cfg(feature = "document-compression")]
+        if let SecretData::Document { content, .. } = &secret_data {
+            assert!(DocumentManager::is_gzip(content), "expected gzip-compressed storage");
+            assert!(content.len() < original.len(), "compression should shrink the content");
+        }
+
+        // Reported size and checksum reflect the original (decompressed) content.
+        assert_eq!(info.file_size, original.len() as u64);
+        assert!(DocumentManager::verify_document(&secret_data).unwrap());
+
+        // Export transparently decompresses back to the exact original bytes.
+        let out = dir.path().join("note-exported.txt");
+        DocumentManager::export_document(&secret_data, &out, true).unwrap();
+        assert_eq!(std::fs::read(&out).unwrap(), original);
     }
 }

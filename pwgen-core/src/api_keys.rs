@@ -522,7 +522,8 @@ mod tests {
 
     #[test]
     fn test_api_key_validation() {
-        assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::AWS, "AKIA_SAMPLE_NOT_REAL123").is_ok());
+        // AWS access key IDs are "AKIA" + 16 chars (20 total); this is AWS's documented example ID.
+        assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::AWS, "AKIAIOSFODNN7EXAMPLE").is_ok());
         assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::AWS, "invalid").is_err());
         assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::GitHub, "ghp_1234567890abcdef").is_ok());
         assert!(ApiKeyManager::validate_api_key_format(&ApiKeyProvider::Stripe, "sk_test_SAMPLE_NOT_REAL_KEY123").is_ok());

@@ -39,3 +39,6 @@ flate2 = { version = "1.0", optional = true }
 [features]
 default = ["document-compression"]
 document-compression = ["flate2"]
+
+[dev-dependencies]
+tempfile = "3"

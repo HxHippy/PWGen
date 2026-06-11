@@ -503,9 +503,6 @@ pub struct SecretsStats {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use tempfile::tempdir;
-    
     #[tokio::test]
     async fn test_secrets_storage_initialization() {
         // This would require setting up a test database

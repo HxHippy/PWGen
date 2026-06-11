@@ -830,7 +830,7 @@ impl BrowserImporter {
             }
         }
         
-        #[cfg(target_os = "linux")]
+        #[cfg(all(unix, not(target_os = "macos")))]
         {
             if let Some(home) = std::env::var_os("HOME") {
                 paths.push(PathBuf::from(home).join(".config/google-chrome/Default/Login Data"));
@@ -857,7 +857,7 @@ impl BrowserImporter {
             }
         }
         
-        #[cfg(target_os = "linux")]
+        #[cfg(all(unix, not(target_os = "macos")))]
         {
             if let Some(home) = std::env::var_os("HOME") {
                 paths.push(PathBuf::from(home).join(".mozilla/firefox"));
@@ -868,7 +868,8 @@ impl BrowserImporter {
     }
 
     fn get_safari_paths() -> Vec<PathBuf> {
-        let paths = Vec::new();
+        #[cfg_attr(not(target_os = "macos"), allow(unused_mut))]
+        let mut paths = Vec::new();
         
         #[cfg(target_os = "macos")]
         {
@@ -897,7 +898,7 @@ impl BrowserImporter {
             }
         }
         
-        #[cfg(target_os = "linux")]
+        #[cfg(all(unix, not(target_os = "macos")))]
         {
             if let Some(home) = std::env::var_os("HOME") {
                 paths.push(PathBuf::from(home).join(".config/microsoft-edge/Default/Login Data"));
@@ -924,7 +925,7 @@ impl BrowserImporter {
             }
         }
         
-        #[cfg(target_os = "linux")]
+        #[cfg(all(unix, not(target_os = "macos")))]
         {
             if let Some(home) = std::env::var_os("HOME") {
                 paths.push(PathBuf::from(home).join(".config/opera/Login Data"));
@@ -951,7 +952,7 @@ impl BrowserImporter {
             }
         }
         
-        #[cfg(target_os = "linux")]
+        #[cfg(all(unix, not(target_os = "macos")))]
         {
             if let Some(home) = std::env::var_os("HOME") {
                 paths.push(PathBuf::from(home).join(".config/BraveSoftware/Brave-Browser/Default/Login Data"));
@@ -978,7 +979,7 @@ impl BrowserImporter {
             }
         }
         
-        #[cfg(target_os = "linux")]
+        #[cfg(all(unix, not(target_os = "macos")))]
         {
             if let Some(home) = std::env::var_os("HOME") {
                 paths.push(PathBuf::from(home).join(".config/vivaldi/Default/Login Data"));

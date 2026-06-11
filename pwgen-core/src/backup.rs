@@ -379,8 +379,7 @@ impl RestoreResult {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use tempfile::tempdir;
-    
+
     #[tokio::test]
     async fn test_backup_verification() {
         // This would require setting up a test storage and creating a backup
